@@ -8,8 +8,6 @@
 
 class metodosController extends Controller
 {
-    
-    
     public function __construct() {
         parent::__construct();
     }
@@ -1044,110 +1042,87 @@ class metodosController extends Controller
 
     public function obtieneCiudadesRQ($args)
     {
-            //Instanciando Objetos
-            $functions= new Functions;
-            $private_functions= new PrivateFunctions;
+        /* 	
+                Rescatando Object enviado desde el WSDL   $args = (array)$args;
+                $args["Credenciales"]->Usuario 
+        */   
+        $args = (array)$args;
 
 
-            /* 	
-                    Rescatando Object enviado desde el WSDL   $args = (array)$args;
-                    $args["Credenciales"]->Usuario 
-            */
+        $usuarioRQ= trim($args["Credenciales"]->usuario);
+        $passwordRQ= trim($args["Credenciales"]->password);
+        $OPCION_RQ= trim($args["Parametros"]->OPCION);
+
+        echo $usuarioRQ.' - '.$passwordRQ.' - '.$OPCION_RQ; exit;
+        
+        
+        $usuarios= $this->loadModel('usuarios');
 
 
-            $args = (array)$args;
-
-
-            $usuarioRQ= trim($args["Credenciales"]->usuario);
-            $passwordRQ= trim($args["Credenciales"]->password);
-            $OPCION_RQ= trim($args["Parametros"]->OPCION);
-
-
-            //declaracion Variables
-            $var_openConex='false';
-
-
-            //Conexion BD
-            $var_openConex= $private_functions->openConexion($_SESSION["WS_sess_server_name_conex"], 
-                                                                                                            $_SESSION["WS_sess_user_name_conex"], 
-                                                                                                            $_SESSION["WS_sess_password_conex"], 
-                                                                                                            $_SESSION["WS_sess_bd_conex"]);
-
-
-
-
-
-            if($var_openConex==false)
+        if($var_openConex==false)
+        {
+            //Verifica User
+            $var_obtieneUser= $usuarios->getUsuario($usuarioRQ);
+            if(trim($var_obtieneUser)=="false")
             {
-                    throw new SoapFault("Error Interno", null, "Contactese con su administrador.");
+                    throw new SoapFault("Login Usuario", null, "Usuario o Password son Incorrectos.");
             }
             else
             {
+                    foreach($var_obtieneUser as $columUser):
+                            $varUsuario		= trim($columUser["clave"]);
+                            $varPass		= trim($columUser["pasword"]);	
+                            $varIdAgen		= trim($columUser["id_agen"]);
+                    endforeach;
 
-
-                    //Verifica User
-                    $var_obtieneUser= $private_functions->getUsuarios($usuarioRQ);
-                    if(trim($var_obtieneUser)=="false")
+                    if($usuarioRQ==$varUsuario && $passwordRQ==$varPass)
                     {
-                            throw new SoapFault("Login Usuario", null, "Usuario o Password son Incorrectos.");
-                    }
-                    else
-                    {
-                            foreach($var_obtieneUser as $columUser):
-                                    $varUsuario		= trim($columUser["clave"]);
-                                    $varPass		= trim($columUser["pasword"]);	
-                                    $varIdAgen		= trim($columUser["id_agen"]);
-                            endforeach;
 
-                            if($usuarioRQ==$varUsuario && $passwordRQ==$varPass)
+                            if($OPCION_RQ==1 || $OPCION_RQ==2)
                             {
-
-                                    if($OPCION_RQ==1 || $OPCION_RQ==2)
+                                    $var_obtieneCiudades= $private_functions->getCiudades($OPCION_RQ);
+                                    if(trim($var_obtieneCiudades)=="false")
                                     {
-                                            $var_obtieneCiudades= $private_functions->getCiudades($OPCION_RQ);
-                                            if(trim($var_obtieneCiudades)=="false")
-                                            {
-                                                    throw new SoapFault("Sin registros", null, "No se encontraron ciudades.");
-                                            }
-                                            else
-                                            {
-                                                    foreach($var_obtieneCiudades as $columCiudades):
-                                                            $varCodigo		= trim($columCiudades["codigo"]);
-                                                            $varCiudad		= trim($columCiudades["nombre"]);	
-
-                                                            $xmlCiudades[]= array(
-                                                                                    "Codigo" =>  mb_convert_encoding($varCodigo, 'UTF-8', 'ISO-8895-1'),
-                                                                                    "Nombre" => mb_convert_encoding($varCiudad, 'UTF-8', 'ISO-8895-1')
-                                                                                    );
-                                                    endforeach;
-
-
-                                                    $xmlResponse= array("Ciudad" => $xmlCiudades);
-                                            }
-
+                                            throw new SoapFault("Sin registros", null, "No se encontraron ciudades.");
                                     }
                                     else
                                     {
-                                            throw new SoapFault("1", "Error consulta", null, "La opcion a ingresar debe ser [1] ó [2]");
+                                            foreach($var_obtieneCiudades as $columCiudades):
+                                                    $varCodigo		= trim($columCiudades["codigo"]);
+                                                    $varCiudad		= trim($columCiudades["nombre"]);	
+
+                                                    $xmlCiudades[]= array(
+                                                                            "Codigo" =>  mb_convert_encoding($varCodigo, 'UTF-8', 'ISO-8895-1'),
+                                                                            "Nombre" => mb_convert_encoding($varCiudad, 'UTF-8', 'ISO-8895-1')
+                                                                            );
+                                            endforeach;
+
+
+                                            $xmlResponse= array("Ciudad" => $xmlCiudades);
                                     }
-
-
-
 
                             }
                             else
                             {
-                                    throw new SoapFault("Login Usuario", null, "Usuario o Password son Incorrectos.");
+                                    throw new SoapFault("1", "Error consulta", null, "La opcion a ingresar debe ser [1] ó [2]");
                             }
 
 
-                            return $xmlResponse;
-                    }//End: obtieneUser
 
-            }//End: $openConex
 
-            $private_functions->closeConexion();
-            exit();
+                    }
+                    else
+                    {
+                            throw new SoapFault("Login Usuario", null, "Usuario o Password son Incorrectos.");
+                    }
+
+
+                    return $xmlResponse;
+            }
+        }
+
+        //$private_functions->closeConexion();
+        exit;
     }
 	
         

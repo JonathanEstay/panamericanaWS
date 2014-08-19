@@ -11,18 +11,18 @@ class Database
     protected $_conexion;
     
     public function __construct() {
-        $this->_conexion= mysql_connect(DB_HOST, DB_USER, DB_PASS);
+        $this->_conexion= mssql_connect(DB_HOST, DB_USER, DB_PASS);
         
         if(!empty($this->_conexion))
         {
-            $bd= mysql_select_db(DB_NAME, $this->_conexion);
+            $bd= mssql_select_db(DB_NAME, $this->_conexion);
             if($bd!=1)
             {
                 throw new Exception('Base de datos no encontrada');
             }
             else
             {
-                //@mysql_set_charset('UTF-8',$this->_conexion);
+                //@mssql_set_charset('UTF-8',$this->_conexion);
                 return TRUE;
             }
         }
@@ -34,7 +34,7 @@ class Database
     
     public function consulta($query)
     {
-        $rs= mysql_query($query, $this->_conexion);
+        $rs= mssql_query($query, $this->_conexion);
         if(empty($rs))
         {
            return FALSE; 
@@ -48,7 +48,7 @@ class Database
     public function fetchAll($consulta)
     {
         $arrayFetch=array();
-        while($reg = mysql_fetch_array($consulta))
+        while($reg = mssql_fetch_array($consulta))
         {
                 $arrayFetch[]= $reg;
         }
@@ -59,12 +59,12 @@ class Database
     
     public function numRows($consulta)
     {
-        return mysql_num_rows($consulta);
+        return mssql_num_rows($consulta);
     }
 
 
     public function closeConex()
     {
-        return mysql_close($this->conexion);
+        return mssql_close($this->conexion);
     }
 }

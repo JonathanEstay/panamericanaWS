@@ -17,816 +17,290 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	<s:element name="ListadoServiciosRQ">
+	<s:element name="consulta_programaRQ">
 		<s:complexType>
 			<s:sequence>
 				<s:element name="Credenciales">
 					<s:complexType>
 						<s:sequence>
-							<s:element minOccurs="1" maxOccurs="1" name="Usuario" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="Password" type="s:string"/>
+							<s:element minOccurs="1" maxOccurs="1" name="usuario" type="s:string"/>
+							<s:element minOccurs="1" maxOccurs="1" name="password" type="s:string"/>
+						</s:sequence>
+					</s:complexType>
+				</s:element>
+				<s:element name="Detalle">
+					<s:complexType>
+						<s:sequence>
+						
+							<s:element minOccurs="1" maxOccurs="1" name="ciudad" type="s:string"/>
+							<s:element minOccurs="1" maxOccurs="1" name="fechaDesde" type="s:string"/>
+							<s:element minOccurs="1" maxOccurs="1" name="fechaHasta" type="s:string"/>
+							<s:element minOccurs="1" maxOccurs="1" name="numHab" type="s:string"/>
+							<s:element minOccurs="0" maxOccurs="unbounded" name="habitacion" nillable="true" type="tns:Habitaciones_consulta_programaRQ" />
+							
+						</s:sequence>
+					</s:complexType>
+				</s:element>
+			</s:sequence>
+		</s:complexType>
+	</s:element>
+	<s:complexType name="Habitaciones_consulta_programaRQ">
+		<s:sequence>
+			<s:element minOccurs="1" maxOccurs="1" name="adultos" type="s:string"/>
+			<s:element minOccurs="1" maxOccurs="1" name="child_1" type="s:string"/>
+			<s:element minOccurs="1" maxOccurs="1" name="child_2" type="s:string"/>
+			<s:element minOccurs="1" maxOccurs="1" name="INF" type="s:string"/>
+		</s:sequence>
+	</s:complexType>
+	
+	
+	
+	
+	
+	
+	
+	
+	<s:element name="consulta_programaRS">
+		<s:complexType>
+			<s:sequence>
+
+				<s:element minOccurs="0" maxOccurs="unbounded" name="programas" nillable="true" type="tns:programas_consulta_programaRS" />
+
+			</s:sequence>
+		</s:complexType>
+	</s:element>
+	<s:complexType name="programas_consulta_programaRS">
+		<s:sequence>	
+			<s:element name="programa">
+					<s:complexType>
+						<s:sequence>			
+							<s:element minOccurs="1" maxOccurs="1" name="codigo" type="s:string" />
+							<s:element minOccurs="1" maxOccurs="1" name="nombre" type="s:string" />
+							<s:element minOccurs="1" maxOccurs="1" name="nota" type="s:string" />
+							<s:element minOccurs="1" maxOccurs="1" name="url_itinerario" type="s:string" />
+						</s:sequence>
+					</s:complexType>
+			</s:element>
+			
+			<s:element name="vigencia" >
+				<s:complexType>
+					<s:sequence>			
+						<s:element minOccurs="0" maxOccurs="unbounded"  name="salida" nillable="true" type="tns:salida" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			
+			
+			
+			
+			<s:element minOccurs="1" maxOccurs="1" name="incluye" type="s:string"/>
+			
+			
+		</s:sequence>
+	</s:complexType>
+	<s:complexType name="salida" >
+				
+					<s:sequence>			
+						<s:element minOccurs="0" maxOccurs="unbounded"  name="opcion" nillable="true" type="tns:opcion" />
+						<s:element minOccurs="1" maxOccurs="1" name="itinerario_vuelo" type="s:string" />
+					</s:sequence>
+			
+	</s:complexType>
+	
+	<s:complexType name="opcion" >			
+		<s:sequence>			
+			<s:element minOccurs="1" maxOccurs="1" name="clave" type="s:string" />
+			<s:element minOccurs="1" maxOccurs="1" name="moneda" type="s:string" />
+			<s:element minOccurs="0" maxOccurs="unbounded"  name="hotel" nillable="true" type="tns:hotel" />
+			<s:element  name="valores" >
+				<s:complexType>
+					<s:sequence>
+		
+						<s:element minOccurs="1" maxOccurs="1" name="valorHabitacion_1" type="s:string"/>
+						<s:element minOccurs="1" maxOccurs="1" name="tipoHabitacion_1" type="s:string"/>
+						<s:element minOccurs="1" maxOccurs="1" name="valorHabitacion_2" type="s:string"/>
+						<s:element minOccurs="1" maxOccurs="1" name="tipoHabitacion_2" type="s:string"/>
+						<s:element minOccurs="1" maxOccurs="1" name="valorHabitacion_3" type="s:string"/>
+						<s:element minOccurs="1" maxOccurs="1" name="tipoHabitacion_3" type="s:string"/>
+						
+					</s:sequence>
+					</s:complexType>
+			</s:element>
+			
+			<s:element minOccurs="1" maxOccurs="1" name="nota" type="s:string" />
+		</s:sequence>
+	</s:complexType>
+	
+	<s:complexType name="hotel" >			
+					<s:sequence>			
+						<s:element minOccurs="1" maxOccurs="1" name="codigo" type="s:string" />
+						<s:element minOccurs="1" maxOccurs="1" name="nombre" type="s:string" />
+						<s:element minOccurs="1" maxOccurs="1" name="ciudad" type="s:string" />
+						<s:element minOccurs="1" maxOccurs="1" name="tipoH" type="s:string" />
+						<s:element minOccurs="1" maxOccurs="1" name="PA" type="s:string" />
+						<s:element minOccurs="1" maxOccurs="1" name="foto_1" type="s:string" />
+						<s:element minOccurs="1" maxOccurs="1" name="foto_2" type="s:string" />
+						<s:element minOccurs="1" maxOccurs="1" name="foto_3" type="s:string" />
+						<s:element minOccurs="1" maxOccurs="1" name="foto_4" type="s:string" />
+					</s:sequence>
+	</s:complexType>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<s:element name="reservaProgramaRQ">
+		<s:complexType>
+			<s:sequence>
+				<s:element name="Credenciales">
+					<s:complexType>
+						<s:sequence>
+							<s:element minOccurs="1" maxOccurs="1" name="usuario" type="s:string"/>
+							<s:element minOccurs="1" maxOccurs="1" name="password" type="s:string"/>
 						</s:sequence>
 					</s:complexType>
 				</s:element>
 				<s:element name="Parametros">
 					<s:complexType>
 						<s:sequence>
-							<s:element minOccurs="1" maxOccurs="1" name="FechaDesde" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="FechaHasta" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="Pais" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="Ciudad" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="TipoSer" type="s:string"/>
+							<s:element minOccurs="1" maxOccurs="1" name="KEY_OPCION" type="s:string"/>
+							<s:element minOccurs="0" maxOccurs="unbounded" name="DatosDelPasajero" nillable="true" type="tns:Habitaciones_reservaProgramaRQ" />
 						</s:sequence>
 					</s:complexType>
 				</s:element>
 			</s:sequence>
 		</s:complexType>
 	</s:element>
-	<s:element name="ListadoServiciosRS">
-		<s:complexType>
-			<s:sequence>
-				<s:element name="Servicios">
-					<s:complexType>
-						<s:sequence>
-							<s:element minOccurs="0" maxOccurs="unbounded" name="Servicio" nillable="true" type="tns:Servicio_ListadoServiciosRS" />							
-						</s:sequence>
-					</s:complexType>
-				</s:element>
-			</s:sequence>
-		</s:complexType>
-	</s:element>
-	<s:complexType name="Servicio_ListadoServiciosRS">
+	<s:complexType name="Habitaciones_reservaProgramaRQ">
 		<s:sequence>
 			<s:element minOccurs="1" maxOccurs="1" name="Tipo" type="s:string"/>
-			<s:element minOccurs="1" maxOccurs="1" name="Codigo" type="s:string"/>
+			<s:element minOccurs="1" maxOccurs="1" name="Pasaporte" type="s:string"/>
+			<s:element minOccurs="1" maxOccurs="1" name="Rut" type="s:string"/>
 			<s:element minOccurs="1" maxOccurs="1" name="Nombre" type="s:string"/>
-			<s:element minOccurs="1" maxOccurs="1" name="Pais" type="s:string"/>
-			<s:element minOccurs="1" maxOccurs="1" name="Ciudad" type="s:string"/>
-			<s:element minOccurs="1" maxOccurs="1" name="VigenciaDesde" type="s:string"/>
-			<s:element minOccurs="1" maxOccurs="1" name="VigenciaHasta" type="s:string"/>
-			<s:element minOccurs="1" maxOccurs="1" name="TarifaPor" type="s:string"/>
-			<s:element minOccurs="1" maxOccurs="1" name="Comision" type="s:string"/>
-			<s:element minOccurs="1" maxOccurs="1" name="Moneda" type="s:string"/>
-			<s:element minOccurs="1" maxOccurs="1" name="Nota" type="s:string"/>
-			<s:element minOccurs="0" maxOccurs="unbounded" name="Valores" nillable="true" type="tns:Valores_ListadoServiciosRS" />
-		</s:sequence>
-	</s:complexType>
-	<s:complexType name="Valores_ListadoServiciosRS">
-		<s:sequence>
-			<s:element minOccurs="1" maxOccurs="1" name="Pax-I" type="s:string"/>
-			<s:element minOccurs="1" maxOccurs="1" name="Pax-F" type="s:string"/>
-			<s:element minOccurs="1" maxOccurs="1" name="Valor" type="s:string"/>
-		</s:sequence>
-	</s:complexType>
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	<s:element name="ListadoPaisCiudadRQ">
-		<s:complexType>
-			<s:sequence>
-				<s:element name="Credenciales">
-					<s:complexType>
-						<s:sequence>
-							<s:element minOccurs="1" maxOccurs="1" name="Usuario" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="Password" type="s:string"/>
-						</s:sequence>
-					</s:complexType>
-				</s:element>
-			</s:sequence>
-		</s:complexType>
-	</s:element>
-	<s:element name="ListadoPaisCiudadRS">
-		<s:complexType>
-			<s:sequence>
-				<s:element name="Paises">
-					<s:complexType>
-						<s:sequence>
-							<s:element minOccurs="0" maxOccurs="unbounded" name="Pais" nillable="true" type="tns:Pais_ListadoPaisCiudadRS" />							
-						</s:sequence>
-					</s:complexType>
-				</s:element>
-			</s:sequence>
-		</s:complexType>
-	</s:element>
-	<s:complexType name="Pais_ListadoPaisCiudadRS">
-		<s:sequence>
-			<s:element minOccurs="1" maxOccurs="1" name="CodigoP" type="s:string"/>
-			<s:element minOccurs="1" maxOccurs="1" name="NombreP" type="s:string"/>
-			<s:element minOccurs="0" maxOccurs="unbounded" name="Ciudad" nillable="true" type="tns:Ciudad_ListadoPaisCiudadRS" />
-		</s:sequence>
-	</s:complexType>
-	<s:complexType name="Ciudad_ListadoPaisCiudadRS">
-		<s:sequence>
-			<s:element minOccurs="1" maxOccurs="1" name="CodigoC" type="s:string"/>
-			<s:element minOccurs="1" maxOccurs="1" name="NombreC" type="s:string"/>
-		</s:sequence>
-	</s:complexType>
-		
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<s:element name="ListadoPlanAlimenticioRQ">
-		<s:complexType>
-			<s:sequence>
-				<s:element name="Credenciales">
-					<s:complexType>
-						<s:sequence>
-							<s:element minOccurs="1" maxOccurs="1" name="Usuario" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="Password" type="s:string"/>
-						</s:sequence>
-					</s:complexType>
-				</s:element>
-			</s:sequence>
-		</s:complexType>
-	</s:element>
-	<s:element name="ListadoPlanAlimenticioRS">
-		<s:complexType>
-			<s:sequence>
-				<s:element minOccurs="0" maxOccurs="unbounded" name="PlanAlimenticio" nillable="true" type="tns:LTP_ListadoPlanAlimenticioRS" />
-			</s:sequence>
-		</s:complexType>
-	</s:element>
-	<s:complexType name="LTP_ListadoPlanAlimenticioRS">
-		<s:sequence>
-			<s:element minOccurs="1" maxOccurs="1" name="Codigo" type="s:string"/>
-			<s:element minOccurs="1" maxOccurs="1" name="Nombre" type="s:string"/>
+			<s:element minOccurs="1" maxOccurs="1" name="Apellidos" type="s:string"/>
+			<s:element minOccurs="1" maxOccurs="1" name="Fecha_Nac" type="s:string"/>
 		</s:sequence>
 	</s:complexType>
 	
 	
 	
-
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<s:element name="ListadoTipoServiciosRQ">
-		<s:complexType>
-			<s:sequence>
-				<s:element name="Credenciales">
-					<s:complexType>
-						<s:sequence>
-							<s:element minOccurs="1" maxOccurs="1" name="Usuario" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="Password" type="s:string"/>
-						</s:sequence>
-					</s:complexType>
-				</s:element>
-			</s:sequence>
-		</s:complexType>
-	</s:element>
-	<s:element name="ListadoTipoServiciosRS">
+	<s:element name="reservaProgramaRS">
 		<s:complexType>
 			<s:sequence>				
-				<s:element minOccurs="0" maxOccurs="unbounded" name="TipoServicio" nillable="true" type="tns:LTP_ListadoTipoServiciosRS" />
+				<s:element minOccurs="1" maxOccurs="1" name="TOTAL_VENTA" type="s:string"/>
+				<s:element minOccurs="1" maxOccurs="1" name="COMAG" type="s:string"/>
+				<s:element minOccurs="1" maxOccurs="1" name="FILE" type="s:string"/>
 			</s:sequence>
 		</s:complexType>
 	</s:element>
-	<s:complexType name="LTP_ListadoTipoServiciosRS">
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<s:element name="obtieneCiudadesRQ">
+		<s:complexType>
+			<s:sequence>
+				<s:element name="Credenciales">
+					<s:complexType>
+						<s:sequence>
+							<s:element minOccurs="1" maxOccurs="1" name="usuario" type="s:string"/>
+							<s:element minOccurs="1" maxOccurs="1" name="password" type="s:string"/>
+						</s:sequence>
+					</s:complexType>
+				</s:element>
+				<s:element name="Parametros">
+					<s:complexType>
+						<s:sequence>
+							<s:element minOccurs="1" maxOccurs="1" name="OPCION" type="s:string"/>
+						</s:sequence>
+					</s:complexType>
+				</s:element>
+			</s:sequence>
+		</s:complexType>
+	</s:element>
+	
+	
+	
+	
+	<s:element name="obtieneCiudadesRS">
+		<s:complexType>
+			<s:sequence>				
+				<s:element minOccurs="0" maxOccurs="unbounded" name="Ciudad" nillable="true" type="tns:ciudades_obtieneCiudadesRS" />
+			</s:sequence>
+		</s:complexType>
+	</s:element>
+	<s:complexType name="ciudades_obtieneCiudadesRS">
 		<s:sequence>
 			<s:element minOccurs="1" maxOccurs="1" name="Codigo" type="s:string"/>
 			<s:element minOccurs="1" maxOccurs="1" name="Nombre" type="s:string"/>
 		</s:sequence>
 	</s:complexType>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<s:element name="ListadoTipoHabitacionRQ">
-		<s:complexType>
-			<s:sequence>
-				<s:element name="Credenciales">
-					<s:complexType>
-						<s:sequence>
-							<s:element minOccurs="1" maxOccurs="1" name="Usuario" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="Password" type="s:string"/>
-						</s:sequence>
-					</s:complexType>
-				</s:element>
-			</s:sequence>
-		</s:complexType>
-	</s:element>
-	<s:element name="ListadoTipoHabitacionRS">
-		<s:complexType>
-			<s:sequence>
-				<s:element minOccurs="0" maxOccurs="unbounded" name="TipoHabitacion" nillable="true" type="tns:LTH_ListadoTipoHabitacionRS" />
-			</s:sequence>
-		</s:complexType>
-	</s:element>
-	<s:complexType name="LTH_ListadoTipoHabitacionRS">
-		<s:sequence>
-			<s:element minOccurs="1" maxOccurs="1" name="Codigo" type="s:string"/>
-			<s:element minOccurs="1" maxOccurs="1" name="Nombre" type="s:string"/>
-		</s:sequence>
-	</s:complexType>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-	<s:element name="ListadoHotelesRQ">
-		<s:complexType>
-			<s:sequence>
-				<s:element name="Credenciales">
-					<s:complexType>
-						<s:sequence>
-							<s:element minOccurs="1" maxOccurs="1" name="Usuario" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="Password" type="s:string"/>
-						</s:sequence>
-					</s:complexType>
-				</s:element>
-				<s:element name="Parametros">
-					<s:complexType>
-						<s:sequence>
-							<s:element minOccurs="1" maxOccurs="1" name="Pais" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="Ciudad" type="s:string"/>
-						</s:sequence>
-					</s:complexType>
-				</s:element>
-			</s:sequence>
-		</s:complexType>
-	</s:element>
-	<s:element name="ListadoHotelesRS">
-		<s:complexType>
-			<s:sequence>
-				<s:element minOccurs="0" maxOccurs="unbounded" name="Hotel" nillable="true" type="tns:LH_ListadoHotelesRS" />
-			</s:sequence>
-		</s:complexType>
-	</s:element>
-	<s:complexType name="LH_ListadoHotelesRS">
-		<s:sequence>
-			<s:element minOccurs="1" maxOccurs="1" name="Codigo" type="s:string"/>
-			<s:element minOccurs="1" maxOccurs="1" name="Nombre" type="s:string"/>
-			<s:element minOccurs="1" maxOccurs="1" name="Categoria" type="s:string"/>
-			<s:element minOccurs="1" maxOccurs="1" name="Pais" type="s:string"/>
-			<s:element minOccurs="1" maxOccurs="1" name="Ciudad" type="s:string"/>
-			<s:element minOccurs="1" maxOccurs="1" name="Fono" type="s:string"/>
-			<s:element minOccurs="1" maxOccurs="1" name="Direccion" type="s:string"/>
-			<s:element minOccurs="1" maxOccurs="1" name="Latitud" type="s:string"/>
-			<s:element minOccurs="1" maxOccurs="1" name="Longitud" type="s:string"/>
-			<s:element name="Fotos_Normal">
-				<s:complexType>
-					<s:sequence>
-						<s:element minOccurs="1" maxOccurs="1" name="Foto_1" type="s:string"/>
-						<s:element minOccurs="1" maxOccurs="1" name="Foto_2" type="s:string"/>
-						<s:element minOccurs="1" maxOccurs="1" name="Foto_3" type="s:string"/>
-						<s:element minOccurs="1" maxOccurs="1" name="Foto_4" type="s:string"/>
-						<s:element minOccurs="1" maxOccurs="1" name="Foto_5" type="s:string"/>
-					</s:sequence>
-				</s:complexType>
-			</s:element>
-			<s:element name="Fotos_Mini">
-				<s:complexType>
-					<s:sequence>
-						<s:element minOccurs="1" maxOccurs="1" name="Foto_mini_1" type="s:string"/>
-						<s:element minOccurs="1" maxOccurs="1" name="Foto_mini_2" type="s:string"/>
-						<s:element minOccurs="1" maxOccurs="1" name="Foto_mini_3" type="s:string"/>
-						<s:element minOccurs="1" maxOccurs="1" name="Foto_mini_4" type="s:string"/>
-						<s:element minOccurs="1" maxOccurs="1" name="Foto_mini_5" type="s:string"/>
-					</s:sequence>
-				</s:complexType>
-			</s:element>
-			<s:element minOccurs="1" maxOccurs="1" name="Notas" type="s:string"/>
-			<s:element minOccurs="1" maxOccurs="1" name="Web" type="s:string"/>
-		</s:sequence>
-	</s:complexType>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<s:element name="HotelDisponibilidadRQ">
-		<s:complexType>
-			<s:sequence>
-				<s:element name="Credenciales">
-					<s:complexType>
-						<s:sequence>
-							<s:element minOccurs="1" maxOccurs="1" name="Usuario" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="Password" type="s:string"/>
-						</s:sequence>
-					</s:complexType>
-				</s:element>
-				<s:element name="Parametros">
-					<s:complexType>
-						<s:sequence>
-							<s:element minOccurs="1" maxOccurs="1" name="HotelDisponible" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="DatosHotel" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="CodPais" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="CodCiudad" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="CodHotel" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="FechaIn" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="FechaOut" type="s:string"/>
-								
-							<s:element name="Habitacion1">
-								<s:complexType>
-									<s:sequence>
-										<s:element minOccurs="1" maxOccurs="1" name="Adultos" type="s:string"/>
-										<s:element minOccurs="1" maxOccurs="1" name="EdadChild1" type="s:string"/>
-										<s:element minOccurs="1" maxOccurs="1" name="EdadChild2" type="s:string"/>
-									</s:sequence>
-								</s:complexType>
-							</s:element>
-							<s:element name="Habitacion2">
-								<s:complexType>
-									<s:sequence>
-										<s:element minOccurs="1" maxOccurs="1" name="Adultos" type="s:string"/>
-										<s:element minOccurs="1" maxOccurs="1" name="EdadChild1" type="s:string"/>
-										<s:element minOccurs="1" maxOccurs="1" name="EdadChild2" type="s:string"/>
-									</s:sequence>
-								</s:complexType>
-							</s:element>
-							<s:element name="Habitacion3">
-								<s:complexType>
-									<s:sequence>
-										<s:element minOccurs="1" maxOccurs="1" name="Adultos" type="s:string"/>
-										<s:element minOccurs="1" maxOccurs="1" name="EdadChild1" type="s:string"/>
-										<s:element minOccurs="1" maxOccurs="1" name="EdadChild2" type="s:string"/>
-									</s:sequence>
-								</s:complexType>
-							</s:element>
-	
-						</s:sequence>
-					</s:complexType>
-				</s:element>
-			</s:sequence>
-		</s:complexType>
-	</s:element>
-
-	
-	<s:element name="HotelDisponibilidadRS">
-		<s:complexType>
-			<s:sequence>		
-			
-				<s:element name="Parametros">
-					<s:complexType>
-						<s:sequence>
-							<s:element minOccurs="1" maxOccurs="1" name="FechaIn" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="FechaOut" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="Tipo" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="FechaRS" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="ServidorRS" type="s:string"/>
-							
-							<s:element name="Habitaciones">
-								<s:complexType>
-									<s:sequence>
-										<s:element minOccurs="0" maxOccurs="unbounded" name="Habitacion" nillable="true" type="tns:Lis_HabitacionesRS" />	
-									</s:sequence>
-								</s:complexType>
-							</s:element>
-							
-						</s:sequence>
-					</s:complexType>
-				</s:element>
-				
-				<s:element minOccurs="0" maxOccurs="unbounded" name="HotelDisponible" nillable="true" type="tns:Lis_HotelDisponibilidadRS" />		
-				
-			</s:sequence>
-		</s:complexType>
-	</s:element>
-
-	<s:complexType name="Lis_HabitacionesRS">
-		<s:sequence>
-				<s:element minOccurs="1" maxOccurs="1" name="Adultos" type="s:string"/>
-				<s:element minOccurs="1" maxOccurs="1" name="EdadChild_1" type="s:string"/>
-				<s:element minOccurs="1" maxOccurs="1" name="EdadChild_2" type="s:string"/>
-		</s:sequence>
-	</s:complexType>
-	
-	<s:complexType name="Lis_HotelDisponibilidadRS">
-		<s:sequence>
-				
-				<s:element name="HotelInfo">
-					<s:complexType>
-						<s:sequence>
-							<s:element minOccurs="1" maxOccurs="1" name="CodigoHtl" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="Nombre" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="Pais" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="Ciudad" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="Direccion" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="Telefono" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="Descripcion" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="Latitud" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="Longitud" type="s:string"/>
-							
-							<s:element name="Fotos_Normal">
-								<s:complexType>
-									<s:sequence>
-										<s:element minOccurs="1" maxOccurs="1" name="Foto_1" type="s:string"/>
-										<s:element minOccurs="1" maxOccurs="1" name="Foto_2" type="s:string"/>
-										<s:element minOccurs="1" maxOccurs="1" name="Foto_3" type="s:string"/>
-										<s:element minOccurs="1" maxOccurs="1" name="Foto_4" type="s:string"/>
-										<s:element minOccurs="1" maxOccurs="1" name="Foto_5" type="s:string"/>
-									</s:sequence>
-								</s:complexType>
-							</s:element>
-							<s:element name="Fotos_Mini">
-								<s:complexType>
-									<s:sequence>
-										<s:element minOccurs="1" maxOccurs="1" name="Foto_mini_1" type="s:string"/>
-										<s:element minOccurs="1" maxOccurs="1" name="Foto_mini_2" type="s:string"/>
-										<s:element minOccurs="1" maxOccurs="1" name="Foto_mini_3" type="s:string"/>
-										<s:element minOccurs="1" maxOccurs="1" name="Foto_mini_4" type="s:string"/>
-										<s:element minOccurs="1" maxOccurs="1" name="Foto_mini_5" type="s:string"/>
-									</s:sequence>
-								</s:complexType>
-							</s:element>
-							
-						</s:sequence>
-					</s:complexType>
-				</s:element>
-				
-				<s:element name="HabitacionesHotel">
-					<s:complexType>
-						<s:sequence>
-							<s:element minOccurs="0" maxOccurs="unbounded" name="HabitacionDisponible" nillable="true" type="tns:Lis_HabitacionesDispRS" />	
-						</s:sequence>
-					</s:complexType>
-				</s:element>
-				
-		</s:sequence>
-	</s:complexType>
-
-	<s:complexType name="Lis_HabitacionesDispRS">
-		<s:sequence>
-			<s:element minOccurs="1" maxOccurs="1" name="ClaveValida" type="s:string"/>
-			<s:element minOccurs="1" maxOccurs="1" name="Estado" type="s:string"/>
-			<s:element minOccurs="1" maxOccurs="1" name="CodTipoHab" type="s:string"/>
-			<s:element minOccurs="1" maxOccurs="1" name="TipoHabitacion" type="s:string"/>
-			<s:element minOccurs="1" maxOccurs="1" name="CodigoPA" type="s:string"/>
-			<s:element minOccurs="1" maxOccurs="1" name="PlanAlimenticio" type="s:string"/>
-			<s:element minOccurs="1" maxOccurs="1" name="Nota" type="s:string"/>
-			<s:element minOccurs="1" maxOccurs="1" name="Comision" type="s:string"/>
-			<s:element minOccurs="1" maxOccurs="1" name="Moneda" type="s:string"/>
-			<s:element minOccurs="1" maxOccurs="1" name="Tarifa" type="s:string"/>
-		</s:sequence>
-	</s:complexType>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<s:element name="ServicioDisponibilidadRQ">
-		<s:complexType>
-			<s:sequence>
-				<s:element name="Credenciales">
-					<s:complexType>
-						<s:sequence>
-							<s:element minOccurs="1" maxOccurs="1" name="Usuario" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="Password" type="s:string"/>
-						</s:sequence>
-					</s:complexType>
-				</s:element>
-				<s:element name="Parametros">
-					<s:complexType>
-						<s:sequence>
-							<s:element minOccurs="1" maxOccurs="1" name="CodPais" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="CodCiudad" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="Fecha" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="Servicio" type="s:string"/>
-								
-							<s:element name="Habitacion">
-								<s:complexType>
-									<s:sequence>
-										<s:element minOccurs="1" maxOccurs="1" name="Adultos" type="s:string"/>
-										<s:element minOccurs="1" maxOccurs="1" name="EdadChild1" type="s:string"/>
-										<s:element minOccurs="1" maxOccurs="1" name="EdadChild2" type="s:string"/>
-									</s:sequence>
-								</s:complexType>
-							</s:element>
-	
-						</s:sequence>
-					</s:complexType>
-				</s:element>
-			</s:sequence>
-		</s:complexType>
-	</s:element>
-	
-	
-	<s:element name="ServicioDisponibilidadRS">
-		<s:complexType>
-			<s:sequence>		
-			
-				<s:element name="Parametros">
-					<s:complexType>
-						<s:sequence>
-							<s:element minOccurs="1" maxOccurs="1" name="Fecha" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="Pais" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="Ciudad" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="Adultos" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="EdadChild_1" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="EdadChild_2" type="s:string"/>
-							
-							<s:element minOccurs="1" maxOccurs="1" name="TipoServicio" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="FechaRS" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="ServidorRS" type="s:string"/>
-						</s:sequence>
-					</s:complexType>
-				</s:element>
-				
-				
-				
-				<s:element name="ServiciosDisponibles">
-					<s:complexType>
-						<s:sequence>
-							
-							<s:element minOccurs="0" maxOccurs="unbounded" name="Servicio" nillable="true" type="tns:Lis_ServiciosDispRS" />	
-							
-						</s:sequence>
-					</s:complexType>
-				</s:element>
-				
-			</s:sequence>
-		</s:complexType>
-	</s:element>
-
-	<s:complexType name="Lis_ServiciosDispRS">
-		<s:sequence>
-			<s:element minOccurs="1" maxOccurs="1" name="ClaveValida" type="s:string"/>
-			<s:element minOccurs="1" maxOccurs="1" name="Codigo" type="s:string"/>
-			<s:element minOccurs="1" maxOccurs="1" name="Descripcion" type="s:string"/>
-			<s:element minOccurs="1" maxOccurs="1" name="Comision" type="s:string"/>
-			<s:element minOccurs="1" maxOccurs="1" name="Nota" type="s:string"/>
-			<s:element minOccurs="1" maxOccurs="1" name="Moneda" type="s:string"/>
-			<s:element minOccurs="1" maxOccurs="1" name="Tarifa" type="s:string"/>
-		</s:sequence>
-	</s:complexType>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<s:element name="ProgramaDisponibilidadRQ">
-		<s:complexType>
-			<s:sequence>
-				<s:element name="Credenciales">
-					<s:complexType>
-						<s:sequence>
-							<s:element minOccurs="1" maxOccurs="1" name="Usuario" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="Password" type="s:string"/>
-						</s:sequence>
-					</s:complexType>
-				</s:element>
-				<s:element name="Parametros">
-					<s:complexType>
-						<s:sequence>
-							<s:element minOccurs="1" maxOccurs="1" name="ProgramaDisponible" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="CodPais" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="CodCiudad" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="Fecha" type="s:string"/>
-								
-							<s:element name="Habitacion1">
-								<s:complexType>
-									<s:sequence>
-										<s:element minOccurs="1" maxOccurs="1" name="Adultos" type="s:string"/>
-										<s:element minOccurs="1" maxOccurs="1" name="EdadChild1" type="s:string"/>
-										<s:element minOccurs="1" maxOccurs="1" name="EdadChild2" type="s:string"/>
-									</s:sequence>
-								</s:complexType>
-							</s:element>
-							<s:element name="Habitacion2">
-								<s:complexType>
-									<s:sequence>
-										<s:element minOccurs="1" maxOccurs="1" name="Adultos" type="s:string"/>
-										<s:element minOccurs="1" maxOccurs="1" name="EdadChild1" type="s:string"/>
-										<s:element minOccurs="1" maxOccurs="1" name="EdadChild2" type="s:string"/>
-									</s:sequence>
-								</s:complexType>
-							</s:element>
-							<s:element name="Habitacion3">
-								<s:complexType>
-									<s:sequence>
-										<s:element minOccurs="1" maxOccurs="1" name="Adultos" type="s:string"/>
-										<s:element minOccurs="1" maxOccurs="1" name="EdadChild1" type="s:string"/>
-										<s:element minOccurs="1" maxOccurs="1" name="EdadChild2" type="s:string"/>
-									</s:sequence>
-								</s:complexType>
-							</s:element>
-	
-						</s:sequence>
-					</s:complexType>
-				</s:element>
-			</s:sequence>
-		</s:complexType>
-	</s:element>
-	
-	
-	<s:element name="ProgramaDisponibilidadRS">
-		<s:complexType>
-			<s:sequence>		
-			
-				<s:element name="Parametros">
-					<s:complexType>
-						<s:sequence>
-							<s:element minOccurs="1" maxOccurs="1" name="Fecha" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="Pais" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="Ciudad" type="s:string"/>
-							
-							<s:element minOccurs="1" maxOccurs="1" name="FechaRS" type="s:string"/>
-							<s:element minOccurs="1" maxOccurs="1" name="ServidorRS" type="s:string"/>
-							
-							<s:element name="Habitaciones">
-								<s:complexType>
-									<s:sequence>
-										<s:element minOccurs="0" maxOccurs="unbounded" name="Habitacion" nillable="true" type="tns:Lis_HabitacionesProgRS" />	
-									</s:sequence>
-								</s:complexType>
-							</s:element>
-							
-						</s:sequence>
-					</s:complexType>
-				</s:element>
-				
-			</s:sequence>
-		</s:complexType>
-	</s:element>
-	
-	
-	<s:complexType name="Lis_HabitacionesProgRS">
-		<s:sequence>
-				<s:element minOccurs="1" maxOccurs="1" name="Adultos" type="s:string"/>
-				<s:element minOccurs="1" maxOccurs="1" name="EdadChild_1" type="s:string"/>
-				<s:element minOccurs="1" maxOccurs="1" name="EdadChild_2" type="s:string"/>
-		</s:sequence>
-	</s:complexType>
-	
-	
 	
 	
 	
@@ -842,177 +316,76 @@
 	
 	
 	
-	<wsdl:message name="ListadoServiciosRQSoapIn">
-		<wsdl:part name="parameters" element="tns:ListadoServiciosRQ"/>
+	<wsdl:message name="consulta_programaRQSoapIn">
+		<wsdl:part name="parameters" element="tns:consulta_programaRQ"/>
 	</wsdl:message>
-	<wsdl:message name="ListadoServiciosRQSoapOut">
-		<wsdl:part name="parameters" element="tns:ListadoServiciosRS"/>
+	<wsdl:message name="consulta_programaRQSoapOut">
+		<wsdl:part name="parameters" element="tns:consulta_programaRS"/>
 	</wsdl:message>
 	
-	
-	
-	<wsdl:message name="ListadoPaisCiudadRQSoapIn">
-		<wsdl:part name="parameters" element="tns:ListadoPaisCiudadRQ"/>
+	<wsdl:message name="reservaProgramaRQSoapIn">
+		<wsdl:part name="parameters" element="tns:reservaProgramaRQ"/>
 	</wsdl:message>
-	<wsdl:message name="ListadoPaisCiudadRQSoapOut">
-		<wsdl:part name="parameters" element="tns:ListadoPaisCiudadRS"/>
+	<wsdl:message name="reservaProgramaRQSoapOut">
+		<wsdl:part name="parameters" element="tns:reservaProgramaRS"/>
 	</wsdl:message>
 	
 	
-	
-	<wsdl:message name="ListadoPlanAlimenticioRQSoapIn">
-		<wsdl:part name="parameters" element="tns:ListadoPlanAlimenticioRQ"/>
+	<wsdl:message name="obtieneCiudadesRQSoapIn">
+		<wsdl:part name="parameters" element="tns:obtieneCiudadesRQ"/>
 	</wsdl:message>
-	<wsdl:message name="ListadoPlanAlimenticioRQSoapOut">
-		<wsdl:part name="parameters" element="tns:ListadoPlanAlimenticioRS"/>
-	</wsdl:message>
-	
-	
-	<wsdl:message name="HotelDisponibilidadRQSoapIn">
-		<wsdl:part name="parameters" element="tns:HotelDisponibilidadRQ"/>
-	</wsdl:message>
-	<wsdl:message name="HotelDisponibilidadRQSoapOut">
-		<wsdl:part name="parameters" element="tns:HotelDisponibilidadRS"/>
-	</wsdl:message>
-	
-	
-	<wsdl:message name="ServicioDisponibilidadRQSoapIn">
-		<wsdl:part name="parameters" element="tns:ServicioDisponibilidadRQ"/>
-	</wsdl:message>
-	<wsdl:message name="ServicioDisponibilidadRQSoapOut">
-		<wsdl:part name="parameters" element="tns:ServicioDisponibilidadRS"/>
-	</wsdl:message>
-	
-
-	<wsdl:message name="ProgramaDisponibilidadRQSoapIn">
-		<wsdl:part name="parameters" element="tns:ProgramaDisponibilidadRQ"/>
-	</wsdl:message>
-	<wsdl:message name="ProgramaDisponibilidadRQSoapOut">
-		<wsdl:part name="parameters" element="tns:ProgramaDisponibilidadRS"/>
-	</wsdl:message>
-	
-	
-	<wsdl:message name="ListadoTipoServiciosRQSoapIn">
-		<wsdl:part name="parameters" element="tns:ListadoTipoServiciosRQ"/>
-	</wsdl:message>
-	<wsdl:message name="ListadoTipoServiciosRQSoapOut">
-		<wsdl:part name="parameters" element="tns:ListadoTipoServiciosRS"/>
-	</wsdl:message>
-	
-	
-	
-	<wsdl:message name="ListadoTipoHabitacionRQSoapIn">
-		<wsdl:part name="parameters" element="tns:ListadoTipoHabitacionRQ"/>
-	</wsdl:message>
-	<wsdl:message name="ListadoTipoHabitacionRQSoapOut">
-		<wsdl:part name="parameters" element="tns:ListadoTipoHabitacionRS"/>
-	</wsdl:message>
-	
-	
-	
-	<wsdl:message name="ListadoHotelesRQSoapIn">
-		<wsdl:part name="parameters" element="tns:ListadoHotelesRQ"/>
-	</wsdl:message>
-	<wsdl:message name="ListadoHotelesRQSoapOut">
-		<wsdl:part name="parameters" element="tns:ListadoHotelesRS"/>
+	<wsdl:message name="obtieneCiudadesRQSoapOut">
+		<wsdl:part name="parameters" element="tns:obtieneCiudadesRS"/>
 	</wsdl:message>
 	
 	
 	
 	
-	<wsdl:portType name="PanamericanaSoap">
-		<wsdl:operation name="ListadoServiciosRQ">
+	
+	
+	
+	
+	
+	<wsdl:portType name="panamericanaSoap">
+		
+		<wsdl:operation name="consulta_programaRQ">
 			<wsdl:documentation xmlns:wsdl='http://schemas.xmlsoap.org/wsdl/'>
-				El Metodo "ListadoServiciosRQ" Muestra un Listado con todos los Servicios que se encuentran disponibles.
+				El Metodo "consulta_programaRQ" Muestra un Listado con todos los Servicios que se encuentran disponibles.
 			</wsdl:documentation>
-			<wsdl:input message="tns:ListadoServiciosRQSoapIn"/>
-			<wsdl:output message="tns:ListadoServiciosRQSoapOut"/>
-		</wsdl:operation>
-		<wsdl:operation name="ListadoPaisCiudadRQ">
-			<wsdl:documentation xmlns:wsdl='http://schemas.xmlsoap.org/wsdl/'>
-				El Metodo "ListadoPaisCiudadRQ" Muestra un Listado con todos los Paises y Ciudades que se encuentran disponibles.
-			</wsdl:documentation>
-			<wsdl:input message="tns:ListadoPaisCiudadRQSoapIn"/>
-			<wsdl:output message="tns:ListadoPaisCiudadRQSoapOut"/>
-		</wsdl:operation>
-		<wsdl:operation name="ListadoPlanAlimenticioRQ">
-			<wsdl:documentation xmlns:wsdl='http://schemas.xmlsoap.org/wsdl/'>
-				El Metodo "ListadoPlanAlimenticioRQ" Muestra un Listado con todos los Plan Alimenticios que existen.
-			</wsdl:documentation>
-			<wsdl:input message="tns:ListadoPlanAlimenticioRQSoapIn"/>
-			<wsdl:output message="tns:ListadoPlanAlimenticioRQSoapOut"/>
-		</wsdl:operation>
-		<wsdl:operation name="HotelDisponibilidadRQ">
-			<wsdl:documentation xmlns:wsdl='http://schemas.xmlsoap.org/wsdl/'>
-				El Metodo "HotelDisponibilidadRQ" Muestra un Listado con todos los Plan Alimenticios que existen.
-			</wsdl:documentation>
-			<wsdl:input message="tns:HotelDisponibilidadRQSoapIn"/>
-			<wsdl:output message="tns:HotelDisponibilidadRQSoapOut"/>
-		</wsdl:operation>
-		<wsdl:operation name="ServicioDisponibilidadRQ">
-			<wsdl:documentation xmlns:wsdl='http://schemas.xmlsoap.org/wsdl/'>
-				El Metodo "ServicioDisponibilidadRQ" Muestra un Listado con todos los Plan Alimenticios que existen.
-			</wsdl:documentation>
-			<wsdl:input message="tns:ServicioDisponibilidadRQSoapIn"/>
-			<wsdl:output message="tns:ServicioDisponibilidadRQSoapOut"/>
-		</wsdl:operation>
-		<wsdl:operation name="ProgramaDisponibilidadRQ">
-			<wsdl:documentation xmlns:wsdl='http://schemas.xmlsoap.org/wsdl/'>
-				El Metodo "ProgramaDisponibilidadRQ" Muestra un Listado con todos los Plan Alimenticios que existen.
-			</wsdl:documentation>
-			<wsdl:input message="tns:ProgramaDisponibilidadRQSoapIn"/>
-			<wsdl:output message="tns:ProgramaDisponibilidadRQSoapOut"/>
-		</wsdl:operation>
-		<wsdl:operation name="ListadoTipoServiciosRQ">
-			<wsdl:documentation xmlns:wsdl='http://schemas.xmlsoap.org/wsdl/'>
-				El Metodo "ListadoTipoServiciosRQ" Muestra un Listado con todos los Tipos de Servicio que existen.
-			</wsdl:documentation>
-			<wsdl:input message="tns:ListadoTipoServiciosRQSoapIn"/>
-			<wsdl:output message="tns:ListadoTipoServiciosRQSoapOut"/>
-		</wsdl:operation>
-		<wsdl:operation name="ListadoTipoHabitacionRQ">
-			<wsdl:documentation xmlns:wsdl='http://schemas.xmlsoap.org/wsdl/'>
-				El Metodo "ListadoTipoHabitacionRQ" Muestra un Listado con todos los Tipos de Habitacion que existen.
-			</wsdl:documentation>
-			<wsdl:input message="tns:ListadoTipoHabitacionRQSoapIn"/>
-			<wsdl:output message="tns:ListadoTipoHabitacionRQSoapOut"/>
+			<wsdl:input message="tns:consulta_programaRQSoapIn"/>
+			<wsdl:output message="tns:consulta_programaRQSoapOut"/>
 		</wsdl:operation>
 		
-		<wsdl:operation name="ListadoHotelesRQ">
+		<wsdl:operation name="reservaProgramaRQ">
 			<wsdl:documentation xmlns:wsdl='http://schemas.xmlsoap.org/wsdl/'>
-				El Metodo "ListadoHotelesRQ" Muestra un Listado con todos los Hoteles que existen.
+				El Metodo "reservaProgramaRQ" Muestra un Listado con todos los Servicios que se encuentran disponibles.
 			</wsdl:documentation>
-			<wsdl:input message="tns:ListadoHotelesRQSoapIn"/>
-			<wsdl:output message="tns:ListadoHotelesRQSoapOut"/>
+			<wsdl:input message="tns:reservaProgramaRQSoapIn"/>
+			<wsdl:output message="tns:reservaProgramaRQSoapOut"/>
 		</wsdl:operation>
+		
+		
+		<wsdl:operation name="obtieneCiudadesRQ">
+			<wsdl:documentation xmlns:wsdl='http://schemas.xmlsoap.org/wsdl/'>
+				El Metodo "obtieneCiudadesRQ" Muestra un Listado con todas las ciudades que se encuentran disponibles.
+			</wsdl:documentation>
+			<wsdl:input message="tns:obtieneCiudadesRQSoapIn"/>
+			<wsdl:output message="tns:obtieneCiudadesRQSoapOut"/>
+		</wsdl:operation>
+		
+		
+		
 	</wsdl:portType>
 	
 	
 	
 	
 	
-	<wsdl:binding name="Panamericana" type="tns:PanamericanaSoap">
+	<wsdl:binding name="panamericana" type="tns:panamericanaSoap">
 		<soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
-		<wsdl:operation name="ListadoServiciosRQ">
-			<soap:operation soapAction="http://oris-webservice/soap/export/ListadoServiciosRQ" style="document"/>
-			<wsdl:input>
-				<soap:body use="literal"/>
-			</wsdl:input>
-			<wsdl:output>
-				<soap:body use="literal"/>
-			</wsdl:output>
-		</wsdl:operation>
-		<wsdl:operation name="ListadoPaisCiudadRQ">
-			<soap:operation soapAction="http://oris-webservice/soap/export/ListadoPaisCiudadRQ" style="document"/>
-			<wsdl:input>
-				<soap:body use="literal"/>
-			</wsdl:input>
-			<wsdl:output>
-				<soap:body use="literal"/>
-			</wsdl:output>
-		</wsdl:operation>
-		<wsdl:operation name="ListadoPlanAlimenticioRQ">
-			<soap:operation soapAction="http://oris-webservice/soap/export/ListadoPlanAlimenticioRQ" style="document"/>
+		
+		<wsdl:operation name="consulta_programaRQ">
+			<soap:operation soapAction="http://oris-webservice/soap/export/consulta_programaRQ" style="document"/>
 			<wsdl:input>
 				<soap:body use="literal"/>
 			</wsdl:input>
@@ -1021,8 +394,8 @@
 			</wsdl:output>
 		</wsdl:operation>
 		
-		<wsdl:operation name="HotelDisponibilidadRQ">
-			<soap:operation soapAction="http://oris-webservice/soap/export/HotelDisponibilidadRQ" style="document"/>
+		<wsdl:operation name="reservaProgramaRQ">
+			<soap:operation soapAction="http://oris-webservice/soap/export/reservaProgramaRQ" style="document"/>
 			<wsdl:input>
 				<soap:body use="literal"/>
 			</wsdl:input>
@@ -1032,8 +405,8 @@
 		</wsdl:operation>
 		
 		
-		<wsdl:operation name="ServicioDisponibilidadRQ">
-			<soap:operation soapAction="http://oris-webservice/soap/export/ServicioDisponibilidadRQ" style="document"/>
+		<wsdl:operation name="obtieneCiudadesRQ">
+			<soap:operation soapAction="http://oris-webservice/soap/export/obtieneCiudadesRQ" style="document"/>
 			<wsdl:input>
 				<soap:body use="literal"/>
 			</wsdl:input>
@@ -1042,55 +415,14 @@
 			</wsdl:output>
 		</wsdl:operation>
 		
-		
-		<wsdl:operation name="ProgramaDisponibilidadRQ">
-			<soap:operation soapAction="http://oris-webservice/soap/export/ProgramaDisponibilidadRQ" style="document"/>
-			<wsdl:input>
-				<soap:body use="literal"/>
-			</wsdl:input>
-			<wsdl:output>
-				<soap:body use="literal"/>
-			</wsdl:output>
-		</wsdl:operation>
-		
-		
-		
-		<wsdl:operation name="ListadoTipoServiciosRQ">
-			<soap:operation soapAction="http://oris-webservice/soap/export/ListadoTipoServiciosRQ" style="document"/>
-			<wsdl:input>
-				<soap:body use="literal"/>
-			</wsdl:input>
-			<wsdl:output>
-				<soap:body use="literal"/>
-			</wsdl:output>
-		</wsdl:operation>
-		<wsdl:operation name="ListadoTipoHabitacionRQ">
-			<soap:operation soapAction="http://oris-webservice/soap/export/ListadoTipoHabitacionRQ" style="document"/>
-			<wsdl:input>
-				<soap:body use="literal"/>
-			</wsdl:input>
-			<wsdl:output>
-				<soap:body use="literal"/>
-			</wsdl:output>
-		</wsdl:operation>
-		
-		<wsdl:operation name="ListadoHotelesRQ">
-			<soap:operation soapAction="http://oris-webservice/soap/export/ListadoHotelesRQ" style="document"/>
-			<wsdl:input>
-				<soap:body use="literal"/>
-			</wsdl:input>
-			<wsdl:output>
-				<soap:body use="literal"/>
-			</wsdl:output>
-		</wsdl:operation>
 	</wsdl:binding>
 	
 	
 	
 	
-	<wsdl:service name="Panamericana">
-		<wsdl:port name="Panamericana" binding="tns:Panamericana">
-			<soap:address location="http://jonathan-pc/PanamericanaWS/server/panamericana"/>
+	<wsdl:service name="panamericana">
+		<wsdl:port name="panamericana" binding="tns:panamericana">
+			<soap:address location="http://jonathan-pc/panamericanaWS/server/panamericana"/>
 		</wsdl:port>		
 	</wsdl:service>
 
