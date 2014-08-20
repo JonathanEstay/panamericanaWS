@@ -12,348 +12,8 @@ class metodosController extends Controller
         parent::__construct();
     }
     
-    public function index(){}
     
-
-    public function consulta_programaRQ($args){
-            //Instanciando Objetos
-            $functions= new Functions;
-            $private_functions= new PrivateFunctions;
-
-
-            /* 	
-                    Rescatando Object enviado desde el WSDL   $args = (array)$args;
-                    $args["Credenciales"]->Usuario 
-            */
-            $args = (array)$args;
-
-            $idRQ = $args["Credenciales"]->id;
-            $idAgenRQ = $args["Credenciales"]->idAgen;
-            $userRQ = $args["Credenciales"]->usuario;
-            $passRQ = $args["Credenciales"]->password;
-
-
-            //declaracion Variables
-            $var_openConex='false';
-            $var_getConsultaPRG='false';
-            $statusRut='false';
-
-
-            //Conexion BD
-            $var_openConex= $private_functions->openConexion($_SESSION["WS_sess_server_name_conex"], 
-                                                                                                            $_SESSION["WS_sess_user_name_conex"], 
-                                                                                                            $_SESSION["WS_sess_password_conex"], 
-                                                                                                            $_SESSION["WS_sess_bd_conex"]);
-
-
-
-            //Verifica User
-                    $var_obtieneUser= $private_functions->getUsuarios($userRQ);
-
-                    if(trim($var_obtieneUser)=="false")
-                    {
-                            throw new SoapFault("Login Usuario", null, "Usuario o Password son Incorrectos.");
-                    }
-                    else
-                    {
-                            foreach($var_obtieneUser as $columUser):
-                                    $varUsuario		= trim($columUser["clave"]);
-                                    $varPass		= trim($columUser["pasword"]);	
-                            endforeach;
-
-                            if($userRQ==$varUsuario && $passRQ==$varPass)
-                            {
-                                    //EJECUTANDO STORED PROCEDURE
-                                    $var_obtienePERFIL= $private_functions->getPERFIL($userRQ, 'FILEWEB');
-                                    foreach($var_obtienePERFIL as $columPERFIL):
-                                            $varAcceso		= trim($columPERFIL["acceso"]);
-                                    endforeach;
-
-                                    if($varAcceso!= "S")
-                                    {
-                                            throw new SoapFault("Login Usuario", null, "Usuario NO puede crear reservas"); 
-                                            exit;	
-                                    }
-                                    else
-                                    {
-
-
-
-
-                                            $ciudadRQ = $args["Detalle"]->ciudad;
-                                            $fechaDesdeRQ = $functions->fechaEng($args["Detalle"]->fechaDesde,"/","-");
-                                            $fechaHastaRQ = $functions->fechaEng($args["Detalle"]->fechaHasta,"/","-");
-                                            $habitacionesRQ[] = $args["Detalle"]->habitacion;
-                                            $habitacionesRQ = $habitacionesRQ[0];
-                                            $totalPasajeros = 0;
-                                            $totalChild = 0 ;
-                                            $porHabitacion;
-                                            $habitacionesCnt = 0;
-                                            $habitacionesCnt = count($habitacionesRQ);
-                                            if($habitacionesCnt>3)
-                                            {
-                                                    throw new SoapFault("Excede limite", null, "El Limite de htabitaciones es 3 , usted envio ".$habitacionesCnt.".");
-                                                    exit;
-                                            }
-                                            if($habitacionesCnt>1)
-                                            {
-                                                    foreach($habitacionesRQ as $habitaciones)
-                                                    {
-                                                            if($habitaciones->adultos*1 < 1 || empty($habitaciones->adultos)){
-                                                                    throw new SoapFault("Peticion erronea", null, "Debe incluir al menos 1 adulto por habitacion.");
-                                                                    exit;
-                                                                    }
-                                                            $totalPasajeros +=  $habitaciones->adultos*1;
-                                                            if(($habitaciones->child_1*1)>0){$totalPasajeros += 1;}
-                                                            if(($habitaciones->child_2*1)>0){$totalPasajeros += 1;}
-                                                            //$porHabitacion[] = array("adultos"=>$habitaciones->adultos,"child_1"=>$habitaciones->child_1,"child_2"=>$habitaciones->child_2);	
-                                                            $porHabitacion[] = array("adultos"=>$habitaciones->adultos*1,
-                                                                                                             "child_1"=>$habitaciones->child_1*1, 
-                                                                                                             "child_2"=>$habitaciones->child_2*1, 
-                                                                                                             "INF"=>$habitaciones->INF*1);
-                                                    }
-                                            }else{
-                                                    $totalPasajeros +=  $habitacionesRQ->adultos*1;
-                                                    if(($habitacionesRQ->child_1*1)>0){$totalPasajeros += 1;}
-                                                    if(($habitacionesRQ->child_2*1)>0){$totalPasajeros += 1;}
-                                                    //$porHabitacion[] = array("adultos"=>$habitaciones->adultos,"child_1"=>$habitaciones->child_1,"child_2"=>$habitaciones->child_2);	
-                                                    $porHabitacion[] = array("adultos"=>$habitacionesRQ->adultos*1,
-                                                                                                     "child_1"=>$habitacionesRQ->child_1*1,
-                                                                                                     "child_2"=>$habitacionesRQ->child_2*1, 
-                                                                                                     "INF"=>$habitacionesRQ->INF*1);
-
-                                                    }
-
-
-                                                    if($totalPasajeros>10){
-                                                                    throw new SoapFault("Excede limite", null, "El Limite de pasajeros es 10 , usted envio ".$totalPasajeros.".");
-                                                                    exit;
-                                                            }
-
-
-
-
-                                            if($var_openConex==false)
-                                            {
-                                                    $functions->getError('1');
-                                            }
-                                            else
-                                            {	
-
-
-                                                    //$sqlSP= "exec WEB_TraeProgramas_Oficial '".$ciudad."', '".$FechaDesde."', '".$FechaHasta."', 'Pasajeros',  ' ' ";
-                                                    $sqlSP="exec WEB_TraeProgramas_Oficial '".$ciudadRQ."', '".$fechaDesdeRQ."', '".$fechaHastaRQ."', '".$totalPasajeros."', '', '".$porHabitacion[0]["adultos"]."', '".$porHabitacion[0]["child_1"]."', '".$porHabitacion[0]["child_2"]."', '0', '".$porHabitacion[1]["adultos"]."', '".$porHabitacion[1]["child_1"]."', '".$porHabitacion[1]["child_2"]."', '0', '".$porHabitacion[2]["adultos"]."', '".$porHabitacion[2]["child_1"]."', '".$porHabitacion[2]["child_2"]."', '0'";
-
-                                                    $resultadoSP= $private_functions->consulta($sqlSP);
-                                                    $resultadoArray= $private_functions->fetch_array($resultadoSP);
-
-                                                    unset($arrayAux);
-                                                    unset($xmlPrograma);
-                                                    unset($xmlVigencia);
-                                                    unset($xmlSalida);
-                                                    unset($xmlOpcion);
-                                                    unset($xmlHoteles);
-                                                    unset($xmlValores);
-                                            foreach ($resultadoArray as $columnasSP ) {
-                                                    $sqlInsert =  "INSERT INTO  tmpConsultaProgramas VALUES(
-                                                                            '".$columnasSP[KEY_]."',
-                                                                            '".$userRQ."',
-                                                                            '".$columnasSP[idPRG]."',
-                                                                            '".$columnasSP[codigoPRG]."',
-                                                                            '".$columnasSP[nombrePRG]."',
-                                                                            '".$columnasSP[ciudadPRG]."',
-                                                                            '".$columnasSP[nochesPRG]."',
-                                                                            '".$columnasSP[idOpcion]."',
-                                                                            '".$columnasSP[moneda]."',
-                                                                            '".$columnasSP[vHab_1]."',
-                                                                            '".$columnasSP[tipoHab_1]."',
-                                                                            '".$columnasSP[vHab_2]."',
-                                                                            '".$columnasSP[tipoHab_2]."',
-                                                                            '".$columnasSP[vHab_3]."',
-                                                                            '".$columnasSP[tipoHab_3]."',
-                                                                            '".$columnasSP[PFamilia]."',
-                                                                            '".$columnasSP[desde]."',
-                                                                            '".$columnasSP[Itinerario]."',
-                                                                            '".$columnasSP[itinerarioVuelo]."',
-                                                                            '".$columnasSP[notaPRG]."',
-                                                                            '".$columnasSP[notaOPC]."',
-                                                                            '".$columnasSP[clave]."',
-                                                                            '".$columnasSP[record_c]."',
-                                                                            '".$columnasSP[Tramo]."',
-                                                                            '".$columnasSP[Espacios]."',
-                                                                            '".$columnasSP[codHotel_1]."',
-                                                                            '".$columnasSP[hotel_1]."',
-                                                                            '".$columnasSP[codPlanAlimenticio_1]."',
-                                                                            '".$columnasSP[PlanAlimenticio_1]."',
-                                                                            '".$columnasSP[codTipoHabitacion_1]."',
-                                                                            '".$columnasSP[TipoHabitacion_1]."',
-                                                                            '".$columnasSP[ciudad_1]."',
-                                                                            '".$columnasSP[cat_1]."',
-                                                                            '".$columnasSP[provee_1]."',
-                                                                            '".$columnasSP[noches_1]."',
-                                                                            '".str_replace('/', '-', $columnasSP[fechaIn_1])."',
-                                                                            '".$columnasSP[convenio_1]."',
-                                                                            '".$columnasSP[codHotel_2]."',
-                                                                            '".$columnasSP[hotel_2]."',
-                                                                            '".$columnasSP[codPlanAlimenticio_2]."',
-                                                                            '".$columnasSP[PlanAlimenticio_2]."',
-                                                                            '".$columnasSP[codTipoHabitacion_2]."',
-                                                                            '".$columnasSP[TipoHabitacion_2]."',
-                                                                            '".$columnasSP[ciudad_2]."',
-                                                                            '".$columnasSP[cat_2]."',
-                                                                            '".$columnasSP[provee_2]."',
-                                                                            '".$columnasSP[noches_2]."',
-                                                                            '".str_replace('/', '-', $columnasSP[fechaIn_2])."',
-                                                                            '".$columnasSP[convenio_2]."',
-                                                                            '".$columnasSP[codHotel_3]."',
-                                                                            '".$columnasSP[hotel_3]."',
-                                                                            '".$columnasSP[codPlanAlimenticio_3]."',
-                                                                            '".$columnasSP[PlanAlimenticio_3]."',
-                                                                            '".$columnasSP[codTipoHabitacion_3]."',
-                                                                            '".$columnasSP[TipoHabitacion_3]."',
-                                                                            '".$columnasSP[ciudad_3]."',
-                                                                            '".$columnasSP[cat_3]."',
-                                                                            '".$columnasSP[provee_3]."',
-                                                                            '".$columnasSP[noches_3]."',
-                                                                            '".str_replace('/', '-', $columnasSP[fechaIn_3])."',
-                                                                            '".$columnasSP[convenio_3]."',
-                                                                            '".$columnasSP[codHotel_4]."',
-                                                                            '".$columnasSP[hotel_4]."',
-                                                                            '".$columnasSP[codPlanAlimenticio_4]."',
-                                                                            '".$columnasSP[PlanAlimenticio_4]."',
-                                                                            '".$columnasSP[codTipoHabitacion_4]."',
-                                                                            '".$columnasSP[TipoHabitacion_4]."',
-                                                                            '".$columnasSP[ciudad_4]."',
-                                                                            '".$columnasSP[cat_4]."',
-                                                                            '".$columnasSP[provee_4]."',
-                                                                            '".$columnasSP[noches_4]."',
-                                                                            '".str_replace('/', '-', $columnasSP[fechaIn_4])."',
-                                                                            '".$columnasSP[convenio_4]."',
-                                                                            '".$columnasSP[codHotel_5]."',
-                                                                            '".$columnasSP[hotel_5]."',
-                                                                            '".$columnasSP[codPlanAlimenticio_5]."',
-                                                                            '".$columnasSP[PlanAlimenticio_5]."',
-                                                                            '".$columnasSP[codTipoHabitacion_5]."',
-                                                                            '".$columnasSP[TipoHabitacion_5]."',
-                                                                            '".$columnasSP[ciudad_5]."',
-                                                                            '".$columnasSP[cat_5]."',
-                                                                            '".$columnasSP[provee_5]."',
-                                                                            '".$columnasSP[noches_5]."',
-                                                                            '".str_replace('/', '-', $columnasSP[fechaIn_5])."',
-                                                                            '".$columnasSP[convenio_5]."',
-                                                                            '".$porHabitacion[0]["adultos"]."',
-                                                                            '".$porHabitacion[0]["child_1"]."',
-                                                                            '".$porHabitacion[0]["child_2"]."',
-                                                                            '".$porHabitacion[0]["INF"]."',
-                                                                            '".$porHabitacion[1]["adultos"]."',
-                                                                            '".$porHabitacion[1]["child_1"]."',
-                                                                            '".$porHabitacion[1]["child_2"]."',
-                                                                            '".$porHabitacion[1]["INF"]."',
-                                                                            '".$porHabitacion[2]["adultos"]."',
-                                                                            '".$porHabitacion[2]["child_1"]."',
-                                                                            '".$porHabitacion[2]["child_2"]."',
-                                                                            '".$porHabitacion[2]["INF"]."',
-                                                                            '".$fechaDesdeRQ."',
-                                                                            '".$fechaHastaRQ."',
-                                                                            '".$habitacionesCnt."',
-                                                                            '".date("Y-m-d")."',
-                                                                            '".date("H:i")."'
-
-                                                                                            )";
-                                                                    $private_functions->consulta($sqlInsert);
-
-
-                                                    if (empty($columnasSP["KEY_"])) {
-
-
-                                                                    foreach ($resultadoArray as $columnasSPDos) {
-
-                                                                            if (!empty($columnasSPDos["KEY_"]) && ($columnasSP["idPRG"]==$columnasSPDos["idPRG"])) {
-
-                                                                                    $xmlOpcion[] = array( 	'clave' => $columnasSPDos["KEY_"],
-                                                                                                                                    'moneda' => $columnasSPDos["moneda"],
-                                                                                                                                    'hotel' => Funciones::creaHoteles($columnasSPDos),
-                                                                                                                                    'valores' => Funciones::creaValores($columnasSPDos),
-                                                                                                                                    'nota' =>  $columnasSP['notaOPC']
-                                                                                                                            );
-
-                                                                                    if ($fechaAux!= $columnasSPDos["desde"])
-                                                                                    {
-
-                                                                                            $xmlSalida[] =  array(	'opcion' => $xmlOpcion,
-                                                                                                                                            'itinerario_vuelo' =>"asdasdas"
-                                                                                                                                    );
-
-                                                                                            unset($xmlOpcion);
-                                                                                            $fechaAux = $columnasSPDos["desde"];
-                                                                                    }else{
-
-                                                                                            $fechaAux = $columnasSPDos["desde"];
-
-                                                                                    }
-
-
-                                                                            }
-
-                                                                    }//endForeach
-
-
-
-
-                                                                    $xmlSalida[] = array(	'opcion' => $xmlOpcion,
-                                                                                                                    'itinerario_vuelo' => str_replace("<text>","","<text><text><text>aaa</text></text></text>")
-
-                                                                                    );
-                                                                    $xmlPrograma = array(	'codigo' => $columnasSP["codigoPRG"],
-                                                                                                            'nombre' => "nombre programa CDATA",
-                                                                                                            'nota'	  => htmlentities("asdasd"),
-                                                                                                            'url_itinerario' => $columnasSP["Itinerario"]
-                                                                                                    );
-
-                                                                    $xmlVigencia = array( 'salida' => $xmlSalida );
-
-                                                                    $arrayAux = array(	'programa' => $xmlPrograma, 
-                                                                                                    'vigencia' => $xmlVigencia,
-                                                                                                    'incluye'  => $columnasSP["idPRG"]
-                                                                                            );
-
-
-
-                                                            $xmlProgramas[] = $arrayAux;
-                                                            unset($arrayAux);
-                                                            unset($xmlPrograma);
-                                                            unset($xmlVigencia);
-                                                            unset($xmlOpcion);
-                                                            unset($xmlSalida);
-                                                            unset($xmlHoteles);
-                                                            unset($xmlValores);
-
-                                                    }	
-
-
-
-
-
-
-
-                                            }//endofreach
-
-
-                                            return $xmlProgramas;
-
-                                            }//End: $openConex
-
-
-                                    }
-
-                            }else{
-                                    throw new SoapFault("Login Usuario", null, "Usuario o Password son Incorrectos.");
-                            }
-            $private_functions->closeConexion();
-                    }
-
-                    exit();
-    }
+    public function index(){}
 
 
     public function reservaProgramaRQ($args)
@@ -1033,10 +693,7 @@ class metodosController extends Controller
     }
 
 
-
-
-
-    public function obtieneCiudadesRQ($args)
+    public function listadoBloqueosRQ($args)
     {
         /* 	
         Rescatando Object enviado desde el WSDL hacia $args = (array)$args;
@@ -1047,78 +704,45 @@ class metodosController extends Controller
         
         $usuarioRQ= trim($args["Credenciales"]->usuario);
         $passwordRQ= trim($args["Credenciales"]->password);
-        $OPCION_RQ= trim($args["Parametros"]->OPCION);
-
-        //echo $usuarioRQ.' - '.$passwordRQ.' - '.$OPCION_RQ; exit;
         
+        $ciudad_RQ= trim($args["Parametros"]->ciudad);
+        $fechaIn_RQ= Funciones::invertirFecha(trim($args["Parametros"]->fecha_in), '/', '-');
+        $fechaOut_RQ= Funciones::invertirFecha(trim($args["Parametros"]->fecha_out), '/', '-');
+
+        //echo $usuarioRQ.' - '.$passwordRQ.' - '.$ciudad_RQ.' - '.$fechaIn_RQ.' - '.$fechaOut_RQ; exit;
         
-        $usuarios= $this->loadModel('usuarios');
+        //$usuarios= $this->loadModel('usuarios');
+        $bloqueos= $this->loadModel('bloqueos');
 
 
-        
-        //Verifica User
-        $var_obtieneUser= $usuarios->getUsuario($usuarioRQ);
-        if($var_obtieneUser==false)
+        if($usuarioRQ=='panamericana' && $passwordRQ=='panaWS')
         {
-            throw new SoapFault("Login Usuario", null, "Usuario o Password son Incorrectos.");
+            $var_getBloqueos= $bloqueos->getBloqueos($ciudad_RQ, $fechaIn_RQ, $fechaOut_RQ);
+            if($var_getBloqueos==false)
+            {
+                throw new SoapFault("Sin registros", null, "No se encontraron bloqueos");
+            }
+            else
+            {
+                foreach($var_getBloqueos as $detBloq):
+                    $varCodigo= trim($detBloq["codigo"]);
+                    $varCiudad= trim($detBloq["nombre"]);
+                    $xmlCiudades[]= array(
+                                    "Codigo" =>  $varCodigo,
+                                    "Nombre" => $varCiudad
+                                    );
+                endforeach;
+
+
+                $xmlResponse= array("Ciudad" => $xmlCiudades);
+                return $xmlResponse;
+            }
+
         }
         else
         {
-                foreach($var_obtieneUser as $columUser):
-                        $varUsuario		= trim($columUser["clave"]);
-                        $varPass		= trim($columUser["pasword"]);	
-                        $varIdAgen		= trim($columUser["id_agen"]);
-                endforeach;
-
-                if($usuarioRQ==$varUsuario && $passwordRQ==$varPass)
-                {
-
-                        if($OPCION_RQ==1 || $OPCION_RQ==2)
-                        {
-                                $var_obtieneCiudades= $private_functions->getCiudades($OPCION_RQ);
-                                if(trim($var_obtieneCiudades)=="false")
-                                {
-                                        throw new SoapFault("Sin registros", null, "No se encontraron ciudades.");
-                                }
-                                else
-                                {
-                                        foreach($var_obtieneCiudades as $columCiudades):
-                                                $varCodigo		= trim($columCiudades["codigo"]);
-                                                $varCiudad		= trim($columCiudades["nombre"]);	
-
-                                                $xmlCiudades[]= array(
-                                                                        "Codigo" =>  mb_convert_encoding($varCodigo, 'UTF-8', 'ISO-8895-1'),
-                                                                        "Nombre" => mb_convert_encoding($varCiudad, 'UTF-8', 'ISO-8895-1')
-                                                                        );
-                                        endforeach;
-
-
-                                        $xmlResponse= array("Ciudad" => $xmlCiudades);
-                                }
-
-                        }
-                        else
-                        {
-                                throw new SoapFault("1", "Error consulta", null, "La opcion a ingresar debe ser [1] ó [2]");
-                        }
-
-
-
-
-                }
-                else
-                {
-                        throw new SoapFault("Login Usuario", null, "Usuario o Password son Incorrectos.");
-                }
-
-
-                return $xmlResponse;
+                throw new SoapFault("Login Usuario", null, "Usuario o Password son Incorrectos.");
         }
-        
-        
-        exit;
     }
-	
-        
 }
 ?>
