@@ -11,6 +11,8 @@ ini_set("soap.wsdl_cache_enabled", "0"); // Deshabilitando WSDL de la memoria ca
 date_default_timezone_set('America/Santiago');
 
 //header('Content-Type: text/html; charset=UTF-8');
+//header('Content-Type: text/html; charset=ISO-8859-1');
+
 define('DS', DIRECTORY_SEPARATOR);
 define('ROOT', realpath(dirname(__FILE__)) . DS);
 define('APP_PATH', ROOT . 'application' . DS);

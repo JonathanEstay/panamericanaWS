@@ -16,7 +16,7 @@ class metodosController extends Controller
     public function index(){}
 
 
-    public function reservaProgramaRQ($args)
+    public function tomarEspaciosRQ($args)
     {
             //Instanciando Objetos
             $functions= new Functions;
@@ -725,16 +725,39 @@ class metodosController extends Controller
             else
             {
                 foreach($var_getBloqueos as $detBloq):
-                    $varCodigo= trim($detBloq["codigo"]);
-                    $varCiudad= trim($detBloq["nombre"]);
-                    $xmlCiudades[]= array(
-                                    "Codigo" =>  $varCodigo,
-                                    "Nombre" => $varCiudad
-                                    );
+                    $mC_record_c= trim($detBloq["record_c"]);
+                    $mC_espa= trim($detBloq["espa"]);
+                    $mC_fecha_vuelo= trim($detBloq["fecha_vuelo"]);
+                    $mC_cod_prov= trim($detBloq["cod_prov"]);
+                    $mC_hora_limi= trim($detBloq["hora_limi"]);
+                    $mC_tramo= trim($detBloq["tramo"]);
+                
+                    $mC_notas= trim($detBloq["notas"]);
+                    $mC_idProg= trim($detBloq["idProg"]);
+                    $mC_nombreProg= trim($detBloq["nombre_prog"]);
+                    $mC_nombreOpe= trim($detBloq["nombreope"]);
+                    $mC_cuantos= trim($detBloq["CUANTOS"]);
+                    
+                    $xmlListadoBloqueos[]= array(
+                        "record_c" => $mC_record_c,
+                        "espacios" => $mC_espa,
+                        "fecha_vuelo" => $mC_fecha_vuelo,
+                        "cod_prov" => $mC_cod_prov,
+                        "hora_limi" => $mC_hora_limi,
+                        "ciudad" => mb_convert_encoding($mC_ciudad, "UTF-8"),
+                        "pais" => mb_convert_encoding($mC_pais, "UTF-8"),
+                        "tramo" => mb_convert_encoding($mC_tramo, "UTF-8"),
+                        "notas" =>  mb_convert_encoding($mC_notas, "UTF-8"),
+
+                        "id_prog" => $mC_idProg,
+                        "nombre_prog" => $mC_nombreProg,
+                        "nombre_ope" => $mC_nombreOpe,
+                        "CUANTOS" => $mC_cuantos
+                        );
                 endforeach;
 
 
-                $xmlResponse= array("Ciudad" => $xmlCiudades);
+                $xmlResponse= array("Bloqueo" => $xmlListadoBloqueos);
                 return $xmlResponse;
             }
 
