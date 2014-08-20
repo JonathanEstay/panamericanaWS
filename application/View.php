@@ -27,7 +27,7 @@ class View
         }
         else
         {
-            throw new Exception('Error de vista AJAX');
+            throw new Exception('Error de vista WSDL');
         }
     }
     

@@ -750,8 +750,8 @@ class metodosController extends Controller
                         "notas" =>  mb_convert_encoding($mC_notas, "UTF-8"),
 
                         "id_prog" => $mC_idProg,
-                        "nombre_prog" => $mC_nombreProg,
-                        "nombre_ope" => $mC_nombreOpe,
+                        "nombre_prog" => mb_convert_encoding($mC_nombreProg, "UTF-8"),
+                        "nombre_ope" => mb_convert_encoding($mC_nombreOpe, "UTF-8"),
                         "CUANTOS" => $mC_cuantos
                         );
                 endforeach;

@@ -179,7 +179,7 @@ xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
 
         <wsdl:operation name="tomarEspaciosRQ">
             <wsdl:documentation xmlns:wsdl='http://schemas.xmlsoap.org/wsdl/'>
-                El Metodo "tomarEspaciosRQ" Muestra un Listado con todos los Servicios que se encuentran disponibles.
+                El Metodo "tomarEspaciosRQ".
             </wsdl:documentation>
             <wsdl:input message="tns:tomarEspaciosRQSoapIn"/>
             <wsdl:output message="tns:tomarEspaciosRQSoapOut"/>
@@ -188,13 +188,12 @@ xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
 
         <wsdl:operation name="listadoBloqueosRQ">
             <wsdl:documentation xmlns:wsdl='http://schemas.xmlsoap.org/wsdl/'>
-                El Metodo "listadoBloqueosRQ" Muestra un Listado con todas las ciudades que se encuentran disponibles.
+                El Metodo "listadoBloqueosRQ" Muestra el Listado de bloqueos que se encuentran disponibles.
             </wsdl:documentation>
             <wsdl:input message="tns:listadoBloqueosRQSoapIn"/>
             <wsdl:output message="tns:listadoBloqueosRQSoapOut"/>
         </wsdl:operation>
-
-
+    
     </wsdl:portType>
 	
 	
@@ -232,7 +231,7 @@ xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
 	
     <wsdl:service name="panamericana">
         <wsdl:port name="panamericana" binding="tns:panamericana">
-            <soap:address location="http://jonathan-pc/panamericanaWS/server/panamericana"/>
+            <soap:address location="http://oristest.panamericanaturismo.cl/panamericanaWS/server/panamericana"/>
         </wsdl:port>		
     </wsdl:service>
 
