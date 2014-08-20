@@ -15,7 +15,7 @@ class usuariosModel extends Model
     public function getUsuario($user)
     {
         $user= addslashes($user);
-        $sql="SELECT * FROM usuarios WHERE clave='".$user."' ";
+        $sql='SELECT * FROM usuarios WHERE clave="'.$user.'"';
         
         $detUser= $this->_db->consulta($sql);
         if($this->_db->numRows($detUser)>0)

@@ -356,10 +356,6 @@ class metodosController extends Controller
     }
 
 
-
-
-
-
     public function reservaProgramaRQ($args)
     {
             //Instanciando Objetos
@@ -1043,85 +1039,83 @@ class metodosController extends Controller
     public function obtieneCiudadesRQ($args)
     {
         /* 	
-                Rescatando Object enviado desde el WSDL   $args = (array)$args;
-                $args["Credenciales"]->Usuario 
+        Rescatando Object enviado desde el WSDL hacia $args = (array)$args;
+        $args["Credenciales"]->Usuario 
         */   
         $args = (array)$args;
 
-
+        
         $usuarioRQ= trim($args["Credenciales"]->usuario);
         $passwordRQ= trim($args["Credenciales"]->password);
         $OPCION_RQ= trim($args["Parametros"]->OPCION);
 
-        echo $usuarioRQ.' - '.$passwordRQ.' - '.$OPCION_RQ; exit;
+        //echo $usuarioRQ.' - '.$passwordRQ.' - '.$OPCION_RQ; exit;
         
         
         $usuarios= $this->loadModel('usuarios');
 
 
-        if($var_openConex==false)
+        
+        //Verifica User
+        $var_obtieneUser= $usuarios->getUsuario($usuarioRQ);
+        if($var_obtieneUser==false)
         {
-            //Verifica User
-            $var_obtieneUser= $usuarios->getUsuario($usuarioRQ);
-            if(trim($var_obtieneUser)=="false")
-            {
-                    throw new SoapFault("Login Usuario", null, "Usuario o Password son Incorrectos.");
-            }
-            else
-            {
-                    foreach($var_obtieneUser as $columUser):
-                            $varUsuario		= trim($columUser["clave"]);
-                            $varPass		= trim($columUser["pasword"]);	
-                            $varIdAgen		= trim($columUser["id_agen"]);
-                    endforeach;
-
-                    if($usuarioRQ==$varUsuario && $passwordRQ==$varPass)
-                    {
-
-                            if($OPCION_RQ==1 || $OPCION_RQ==2)
-                            {
-                                    $var_obtieneCiudades= $private_functions->getCiudades($OPCION_RQ);
-                                    if(trim($var_obtieneCiudades)=="false")
-                                    {
-                                            throw new SoapFault("Sin registros", null, "No se encontraron ciudades.");
-                                    }
-                                    else
-                                    {
-                                            foreach($var_obtieneCiudades as $columCiudades):
-                                                    $varCodigo		= trim($columCiudades["codigo"]);
-                                                    $varCiudad		= trim($columCiudades["nombre"]);	
-
-                                                    $xmlCiudades[]= array(
-                                                                            "Codigo" =>  mb_convert_encoding($varCodigo, 'UTF-8', 'ISO-8895-1'),
-                                                                            "Nombre" => mb_convert_encoding($varCiudad, 'UTF-8', 'ISO-8895-1')
-                                                                            );
-                                            endforeach;
-
-
-                                            $xmlResponse= array("Ciudad" => $xmlCiudades);
-                                    }
-
-                            }
-                            else
-                            {
-                                    throw new SoapFault("1", "Error consulta", null, "La opcion a ingresar debe ser [1] ó [2]");
-                            }
-
-
-
-
-                    }
-                    else
-                    {
-                            throw new SoapFault("Login Usuario", null, "Usuario o Password son Incorrectos.");
-                    }
-
-
-                    return $xmlResponse;
-            }
+            throw new SoapFault("Login Usuario", null, "Usuario o Password son Incorrectos.");
         }
+        else
+        {
+                foreach($var_obtieneUser as $columUser):
+                        $varUsuario		= trim($columUser["clave"]);
+                        $varPass		= trim($columUser["pasword"]);	
+                        $varIdAgen		= trim($columUser["id_agen"]);
+                endforeach;
 
-        //$private_functions->closeConexion();
+                if($usuarioRQ==$varUsuario && $passwordRQ==$varPass)
+                {
+
+                        if($OPCION_RQ==1 || $OPCION_RQ==2)
+                        {
+                                $var_obtieneCiudades= $private_functions->getCiudades($OPCION_RQ);
+                                if(trim($var_obtieneCiudades)=="false")
+                                {
+                                        throw new SoapFault("Sin registros", null, "No se encontraron ciudades.");
+                                }
+                                else
+                                {
+                                        foreach($var_obtieneCiudades as $columCiudades):
+                                                $varCodigo		= trim($columCiudades["codigo"]);
+                                                $varCiudad		= trim($columCiudades["nombre"]);	
+
+                                                $xmlCiudades[]= array(
+                                                                        "Codigo" =>  mb_convert_encoding($varCodigo, 'UTF-8', 'ISO-8895-1'),
+                                                                        "Nombre" => mb_convert_encoding($varCiudad, 'UTF-8', 'ISO-8895-1')
+                                                                        );
+                                        endforeach;
+
+
+                                        $xmlResponse= array("Ciudad" => $xmlCiudades);
+                                }
+
+                        }
+                        else
+                        {
+                                throw new SoapFault("1", "Error consulta", null, "La opcion a ingresar debe ser [1] ó [2]");
+                        }
+
+
+
+
+                }
+                else
+                {
+                        throw new SoapFault("Login Usuario", null, "Usuario o Password son Incorrectos.");
+                }
+
+
+                return $xmlResponse;
+        }
+        
+        
         exit;
     }
 	
