@@ -6,17 +6,17 @@ RewriteCond %{REQUEST_FILENAME} !-l
 
 RewriteRule ^(.+)$ index.php?url=$1 [QSA,L]
 
-<Limit GET POST>
-    order deny,allow
-    deny from all
+#<Limit GET POST>
+#    order deny,allow
+#    deny from all
 
     # Begin: Tsyacom
-    allow from 127.0.0.1
-    allow from 192.168.1.102
-    allow from 190.8.120.69
+#    allow from 127.0.0.1
+#    allow from 192.168.1.102
+#    allow from 190.8.120.69
     # End: Tsyacom
 
     # Begin: TravelClub
-    allow from 200.27.113.18
+#    allow from 200.27.113.18
     # End: TravelClub
-</Limit>
+#</Limit>
