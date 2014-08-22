@@ -14,7 +14,29 @@ class bloqueosModel extends Model
     
     public function getBloqueos($ciudadRQ, $fechaDesdeRQ, $fechaHastaRQ)
     {
-        $sql="EXEC WS_getBloqueos '".$ciudadRQ."', '".$fechaDesdeRQ."', '".$fechaHastaRQ."'";
+        if($ciudadRQ)
+        {
+            if($fechaDesdeRQ)
+            {
+                $sql="EXEC WS_getBloqueos '".$ciudadRQ."', '".$fechaDesdeRQ."', '".$fechaHastaRQ."'";
+            }
+            else
+            {
+                $sql="EXEC WS_getBloqueos '".$ciudadRQ."'";
+            }
+        }
+        else
+        {
+            if($fechaDesdeRQ)
+            {
+                $sql="EXEC WS_getBloqueos NULL, '".$fechaDesdeRQ."', '".$fechaHastaRQ."'";
+            }
+            else
+            {
+                $sql="EXEC WS_getBloqueos";
+            }
+            
+        }
         
         $bloqueos= $this->_db->consulta($sql);
         if($this->_db->numRows($bloqueos)>0)
