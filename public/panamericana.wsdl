@@ -124,6 +124,7 @@ xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
                     <s:element minOccurs="1" maxOccurs="1" name="record_c" type="s:string"/>
                     <s:element minOccurs="1" maxOccurs="1" name="espacios" type="s:string"/>
                     <s:element minOccurs="1" maxOccurs="1" name="fecha_vuelo" type="s:string"/>
+                    <s:element minOccurs="1" maxOccurs="1" name="fecha_tope" type="s:string"/>
                     <s:element minOccurs="1" maxOccurs="1" name="cod_prov" type="s:string"/>
                     <s:element minOccurs="1" maxOccurs="1" name="hora_limi" type="s:string"/>
                     <s:element minOccurs="1" maxOccurs="1" name="tramo" type="s:string"/>

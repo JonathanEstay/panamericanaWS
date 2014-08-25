@@ -706,9 +706,18 @@ class metodosController extends Controller
         $passwordRQ= trim($args["Credenciales"]->password);
         
         $ciudad_RQ= trim($args["Parametros"]->ciudad);
-        $fechaIn_RQ= Funciones::invertirFecha(trim($args["Parametros"]->fecha_in), '/', '-');
-        $fechaOut_RQ= Funciones::invertirFecha(trim($args["Parametros"]->fecha_out), '/', '-');
-
+        $fechaIn_RQ= trim($args["Parametros"]->fecha_in);
+        $fechaOut_RQ= trim($args["Parametros"]->fecha_out);
+                
+        if($fechaIn_RQ)
+        {
+            $fechaIn_RQ= Funciones::invertirFecha($fechaIn_RQ, '/', '-');
+        }
+        
+        if($fechaOut_RQ)
+        {
+            $fechaOut_RQ= Funciones::invertirFecha($fechaOut_RQ, '/', '-');
+        }
         //echo $usuarioRQ.' - '.$passwordRQ.' - '.$ciudad_RQ.' - '.$fechaIn_RQ.' - '.$fechaOut_RQ; exit;
         
         //$usuarios= $this->loadModel('usuarios');
@@ -728,6 +737,7 @@ class metodosController extends Controller
                     $mC_record_c= trim($detBloq["record_c"]);
                     $mC_espa= trim($detBloq["espa"]);
                     $mC_fecha_vuelo= trim($detBloq["fecha_vuelo"]);
+                    $mC_fecha_tope= trim($detBloq["fecha_tope"]);
                     $mC_cod_prov= trim($detBloq["cod_prov"]);
                     $mC_hora_limi= trim($detBloq["hora_limi"]);
                     $mC_tramo= trim($detBloq["tramo"]);
@@ -742,6 +752,7 @@ class metodosController extends Controller
                         "record_c" => $mC_record_c,
                         "espacios" => $mC_espa,
                         "fecha_vuelo" => $mC_fecha_vuelo,
+                        "fecha_tope" => $mC_fecha_tope,
                         "cod_prov" => $mC_cod_prov,
                         "hora_limi" => $mC_hora_limi,
                         "ciudad" => mb_convert_encoding($mC_ciudad, "UTF-8"),
