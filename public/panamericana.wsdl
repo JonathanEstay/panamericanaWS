@@ -143,7 +143,112 @@ xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
 	
 	
 	
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <s:element name="detalleProgramaRQ">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element name="Credenciales">
+                            <s:complexType>
+                                <s:sequence>
+                                    <s:element minOccurs="1" maxOccurs="1" name="usuario" type="s:string"/>
+                                    <s:element minOccurs="1" maxOccurs="1" name="password" type="s:string"/>
+                                </s:sequence>
+                            </s:complexType>
+                        </s:element>
+                        <s:element name="Parametros">
+                            <s:complexType>
+                                <s:sequence>
+                                    
+                                    <s:element minOccurs="1" maxOccurs="1" name="fecha_in" type="s:string"/>
+                                    <s:element minOccurs="1" maxOccurs="1" name="pasajeros" type="s:string"/>
+                                    <s:element minOccurs="1" maxOccurs="1" name="codigo_prg" type="s:string"/>
+                                    <s:element minOccurs="1" maxOccurs="1" name="id_opc" type="s:string"/>
+
+                                    <s:element name="habitaciones">
+                                        <s:complexType>
+                                            <s:sequence>
+                                                <s:element minOccurs="0" maxOccurs="unbounded" name="habitacion" nillable="true" type="tns:Lis_HabitacionesRQ" />	
+                                            </s:sequence>
+                                        </s:complexType>
+                                    </s:element>
+                                    
+                                </s:sequence>
+                            </s:complexType>
+                        </s:element>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            
+            <s:complexType name="Lis_HabitacionesRQ">
+                <s:sequence>
+                    <s:element minOccurs="1" maxOccurs="1" name="adultos" type="s:string"/>
+                    <s:element minOccurs="1" maxOccurs="1" name="edad_child_1" type="s:string"/>
+                    <s:element minOccurs="1" maxOccurs="1" name="edad_child_2" type="s:string"/>
+                    <s:element minOccurs="1" maxOccurs="1" name="infant" type="s:string"/>
+                </s:sequence>
+            </s:complexType>
+            
+            
+            
+            
+            
+            
 	
+            <s:element name="detalleProgramaRS">
+                <s:complexType>
+                    <s:sequence>				
+                        <s:element minOccurs="0" maxOccurs="unbounded" name="Bloqueo" nillable="true" type="tns:nodoBloqueos_detalleProgramaRS" />
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:complexType name="nodoBloqueos_detalleProgramaRS">
+                <s:sequence>
+                    
+                    <s:element minOccurs="1" maxOccurs="1" name="record_c" type="s:string"/>
+                    
+                </s:sequence>
+            </s:complexType>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
 	
 	
 	
@@ -166,6 +271,14 @@ xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
     </wsdl:message>
     <wsdl:message name="listadoBloqueosRQSoapOut">
         <wsdl:part name="parameters" element="tns:listadoBloqueosRS"/>
+    </wsdl:message>
+    
+    
+    <wsdl:message name="detalleProgramaRQSoapIn">
+        <wsdl:part name="parameters" element="tns:detalleProgramaRQ"/>
+    </wsdl:message>
+    <wsdl:message name="detalleProgramaRQSoapOut">
+        <wsdl:part name="parameters" element="tns:detalleProgramaRS"/>
     </wsdl:message>
 	
 	
@@ -194,6 +307,16 @@ xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
             <wsdl:input message="tns:listadoBloqueosRQSoapIn"/>
             <wsdl:output message="tns:listadoBloqueosRQSoapOut"/>
         </wsdl:operation>
+        
+        
+        <wsdl:operation name="detalleProgramaRQ">
+            <wsdl:documentation xmlns:wsdl='http://schemas.xmlsoap.org/wsdl/'>
+                El Metodo "detalleProgramaRQ" Muestra el Listado de bloqueos que se encuentran disponibles.
+            </wsdl:documentation>
+            <wsdl:input message="tns:detalleProgramaRQSoapIn"/>
+            <wsdl:output message="tns:detalleProgramaRQSoapOut"/>
+        </wsdl:operation>
+        
     
     </wsdl:portType>
 	
@@ -224,6 +347,18 @@ xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
                 <soap:body use="literal"/>
             </wsdl:output>
         </wsdl:operation>
+        
+        
+        <wsdl:operation name="detalleProgramaRQ">
+            <soap:operation soapAction="http://oris-webservice/soap/export/detalleProgramaRQ" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        
 
     </wsdl:binding>
 	

@@ -48,4 +48,19 @@ class bloqueosModel extends Model
             return false;
         }
     }
+    
+    
+    
+    public function exeSP($sql)
+    {
+        $bloqueos= $this->_db->consulta($sql);
+        if($this->_db->numRows($bloqueos)>0)
+        {
+            return $this->_db->fetchAll($bloqueos);
+        }
+        else
+        {
+            return false;
+        }
+    }
 }

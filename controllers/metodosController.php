@@ -778,5 +778,63 @@ class metodosController extends Controller
                 throw new SoapFault("Login Usuario", null, "Usuario o Password son Incorrectos.");
         }
     }
+    
+    
+    public function detalleProgramaRQ($args)
+    {
+        $args = (array)$args;
+
+        $usuarioRQ= trim($args["Credenciales"]->usuario);
+        $passwordRQ= trim($args["Credenciales"]->password);
+        
+        $fechaIn_RQ= trim($args["Parametros"]->fecha_in);
+        $pasajeros_RQ= trim($args["Parametros"]->pasajeros);
+        $codigoPrg_RQ= trim($args["Parametros"]->codigo_prg);
+        $idOpc_RQ= trim($args["Parametros"]->id_opc);
+        
+        
+        if($fechaIn_RQ)
+        {
+            $fechaIn_RQ= Funciones::invertirFecha($fechaIn_RQ, '/', '-');
+        }
+        
+        $sql='EXEC WEB_TraeProgramas_TC "'.$fechaIn_RQ.'", "'.$pasajeros_RQ.'", "'.$codigoPrg_RQ.'", "'.$idOpc_RQ.'" ';
+        $i=0;
+        foreach($args["Parametros"]->habitaciones->habitacion as $nHabitaciones):
+            $adultos_RQ= $this->IntConvert(trim($nHabitaciones->adultos));
+            $edadChild_1_RQ= $this->IntConvert(trim($nHabitaciones->edad_child_1));
+            $edadChild_2_RQ= $this->IntConvert(trim($nHabitaciones->edad_child_2));
+            $infant_RQ= $this->IntConvert(trim($nHabitaciones->infant));
+            //echo trim($nHabitaciones->adultos) . ' - ';
+            $sql.=', '.$adultos_RQ.', '.$edadChild_1_RQ.', '.$edadChild_2_RQ.', '.$infant_RQ.' ';
+            if($i>=2)
+            {
+                break;
+            }
+            ++$i;
+        endforeach;
+        
+        
+        
+        
+        echo $sql; exit;
+        
+        //$usuarios= $this->loadModel('usuarios');
+        $bloqueos= $this->loadModel('bloqueos');
+        
+
+        if($usuarioRQ=='panamericana' && $passwordRQ=='panaWS')
+        {
+            $var_getBloqueos= $bloqueos->exeSP($sql);
+            if($var_getBloqueos==false)
+            {
+                throw new SoapFault("Sin registros", null, "No se encontro detalle para el programa");
+            }
+            else
+            {
+                
+            }
+        }
+    }
 }
 ?>

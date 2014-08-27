@@ -54,6 +54,19 @@ abstract class Controller
     }
     
     
+    protected function IntConvert($valor)
+    {
+        
+        if(is_numeric($valor))
+        {
+            return $valor;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    
     protected function redireccionar($ruta = false)
     {
         if($ruta){
