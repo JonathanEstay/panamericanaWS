@@ -183,7 +183,7 @@ xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
                                 <s:sequence>
                                     
                                     <s:element minOccurs="1" maxOccurs="1" name="fecha_in" type="s:string"/>
-                                    <s:element minOccurs="1" maxOccurs="1" name="pasajeros" type="s:string"/>
+                                    <s:element minOccurs="1" maxOccurs="1" name="record_c" type="s:string"/>
                                     <s:element minOccurs="1" maxOccurs="1" name="codigo_prg" type="s:string"/>
                                     <s:element minOccurs="1" maxOccurs="1" name="id_opc" type="s:string"/>
 
@@ -219,20 +219,63 @@ xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
 	
             <s:element name="detalleProgramaRS">
                 <s:complexType>
-                    <s:sequence>				
-                        <s:element minOccurs="0" maxOccurs="unbounded" name="Bloqueo" nillable="true" type="tns:nodoBloqueos_detalleProgramaRS" />
+                    <s:sequence>
+                        		
+                        <s:element minOccurs="0" maxOccurs="unbounded" name="opcion" nillable="true" type="tns:nodoOpcion_detalleProgramaRS" />
+                    
                     </s:sequence>
                 </s:complexType>
             </s:element>
-            <s:complexType name="nodoBloqueos_detalleProgramaRS">
+            <s:complexType name="nodoOpcion_detalleProgramaRS">
                 <s:sequence>
                     
+                    <s:element minOccurs="1" maxOccurs="1" name="id_prg" type="s:string"/>
+                    <s:element minOccurs="1" maxOccurs="1" name="nombre_prg" type="s:string"/>
+                    <s:element minOccurs="1" maxOccurs="1" name="ciudad_prg" type="s:string"/>
+                    <s:element minOccurs="1" maxOccurs="1" name="noches_prg" type="s:string"/>
+                    <s:element minOccurs="1" maxOccurs="1" name="id_opcion" type="s:string"/>
+                    <s:element minOccurs="1" maxOccurs="1" name="moneda" type="s:string"/>
+                    <s:element minOccurs="1" maxOccurs="1" name="edad_mayor" type="s:string"/>
+                    <s:element minOccurs="1" maxOccurs="1" name="desde" type="s:string"/>
+                    <s:element minOccurs="1" maxOccurs="1" name="itinerario" type="s:string"/>
+                    <s:element minOccurs="1" maxOccurs="1" name="itinerario_vuelo" type="s:string"/>
+                    
+                    <s:element minOccurs="1" maxOccurs="1" name="nota_prg" type="s:string"/>
+                    <s:element minOccurs="1" maxOccurs="1" name="nota_opc" type="s:string"/>
+                    <s:element minOccurs="1" maxOccurs="1" name="clave" type="s:string"/>
                     <s:element minOccurs="1" maxOccurs="1" name="record_c" type="s:string"/>
+                    <s:element minOccurs="1" maxOccurs="1" name="tramo" type="s:string"/>
+                    
+                    <s:element name="hoteles">
+                        <s:complexType>
+                            <s:sequence>
+                                <s:element minOccurs="0" maxOccurs="unbounded" name="hotel" nillable="true" type="tns:nodoHoteles_detalleProgRQ" />
+                            </s:sequence>
+                        </s:complexType>
+                    </s:element>
                     
                 </s:sequence>
             </s:complexType>
             
-            
+            <s:complexType name="nodoHoteles_detalleProgRQ">
+                <s:sequence>
+                    <s:element minOccurs="1" maxOccurs="1" name="codigo" type="s:string"/>
+                    <s:element minOccurs="1" maxOccurs="1" name="nombre" type="s:string"/>
+                    <s:element minOccurs="1" maxOccurs="1" name="ciudad" type="s:string"/>
+                    <s:element minOccurs="1" maxOccurs="1" name="fecha_in" type="s:string"/>
+                    <s:element minOccurs="1" maxOccurs="1" name="noches" type="s:string"/>
+                    
+                    <s:element minOccurs="1" maxOccurs="1" name="categoria" type="s:string"/>
+                    <s:element minOccurs="1" maxOccurs="1" name="proveedor" type="s:string"/>
+                    
+                    <s:element minOccurs="1" maxOccurs="1" name="cod_pa" type="s:string"/>
+                    <s:element minOccurs="1" maxOccurs="1" name="p_alimenticio" type="s:string"/>
+                    <s:element minOccurs="1" maxOccurs="1" name="cod_th" type="s:string"/>
+                    <s:element minOccurs="1" maxOccurs="1" name="t_habitacion" type="s:string"/>
+
+                    <s:element minOccurs="1" maxOccurs="1" name="convenio" type="s:string"/>
+                </s:sequence>
+            </s:complexType>
             
             
             

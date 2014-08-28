@@ -53,6 +53,7 @@ class bloqueosModel extends Model
     
     public function exeSP($sql)
     {
+        //echo $sql; exit;
         $bloqueos= $this->_db->consulta($sql);
         if($this->_db->numRows($bloqueos)>0)
         {
