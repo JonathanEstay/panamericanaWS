@@ -73,6 +73,7 @@ class metodosController extends Controller
                 
                     $mC_notas= mb_convert_encoding(trim($detBloq["notas"]), "UTF-8");
                     $mC_idProg= trim($detBloq["idProg"]);
+                    $mC_codigoProg= trim($detBloq["programa"]);
                     $mC_nombreProg= mb_convert_encoding(trim($detBloq["nombre_prog"]), "UTF-8");
                     $mC_nombreOpe= mb_convert_encoding(trim($detBloq["nombreope"]), "UTF-8");
                     $mC_cuantos= trim($detBloq["CUANTOS"]);
@@ -90,6 +91,7 @@ class metodosController extends Controller
                         "notas" =>  $mC_notas,
 
                         "id_prog" => $mC_idProg,
+                        "codigo_prog" => $mC_codigoProg,
                         "nombre_prog" => $mC_nombreProg,
                         "nombre_ope" => $mC_nombreOpe,
                         "CUANTOS" => $mC_cuantos
@@ -171,9 +173,7 @@ class metodosController extends Controller
             }
             else
             {
-                
-                
-                
+
                 foreach($var_getDetalleProg as $detPRG):
                     $mC_idPRG= trim($detPRG["idPRG"]);
                     $mC_nombrePRG= trim($detPRG["nombrePRG"]);
@@ -186,6 +186,7 @@ class metodosController extends Controller
                     $mC_iti= str_replace('<br />', '\n', mb_convert_encoding(trim($detPRG["Itinerario"]), "UTF-8"));
                     $mC_itiVuelo= str_replace('<br />', '\n', mb_convert_encoding(trim($detPRG["itinerarioVuelo"]), "UTF-8"));
                     $mC_notaPRG= str_replace('<br />', '\n', mb_convert_encoding(trim($detPRG["notaPRG"]), "UTF-8"));
+                    //$mC_notaPRG= str_replace('<br />', '\n', trim($detPRG["notaPRG"]));
                     $mC_notaOPC= str_replace('<br />', '\n', mb_convert_encoding(trim($detPRG["notaOPC"]), "UTF-8"));
                     $mC_clave= trim($detPRG["clave"]);
                     $mC_recordC= trim($detPRG["record_c"]);

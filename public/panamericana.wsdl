@@ -133,6 +133,7 @@ xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
                     <s:element minOccurs="1" maxOccurs="1" name="notas" type="s:string"/>
                     
                     <s:element minOccurs="1" maxOccurs="1" name="id_prog" type="s:string"/>
+                    <s:element minOccurs="1" maxOccurs="1" name="codigo_prog" type="s:string"/>
                     <s:element minOccurs="1" maxOccurs="1" name="nombre_prog" type="s:string"/>
                     <s:element minOccurs="1" maxOccurs="1" name="nombre_ope" type="s:string"/>
                     <s:element minOccurs="1" maxOccurs="1" name="CUANTOS" type="s:string"/>
