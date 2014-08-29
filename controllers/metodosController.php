@@ -15,11 +15,7 @@ class metodosController extends Controller
     
     public function index(){}
 
-
-    public function tomarEspaciosRQ($args)
-    {
-        
-    }
+    public function tomarEspaciosRQ($args){}
 
 
     public function listadoBloqueosRQ($args)
@@ -117,13 +113,13 @@ class metodosController extends Controller
 
         $usuarioRQ= trim($args["Credenciales"]->usuario);
         $passwordRQ= trim($args["Credenciales"]->password);
-        
+
         $fechaIn_RQ= trim($args["Parametros"]->fecha_in);
         $recordC_RQ= trim($args["Parametros"]->record_c);
         $codigoPrg_RQ= trim($args["Parametros"]->codigo_prg);
         $idOpc_RQ= trim($args["Parametros"]->id_opc);
-        
-        
+
+
         if($fechaIn_RQ)
         {
             $fechaIn_RQ= Funciones::invertirFecha($fechaIn_RQ, '/', '-');
@@ -154,11 +150,11 @@ class metodosController extends Controller
             
             $sql.=', '.$adultos_RQ.', '.$edadChild_1_RQ.', '.$edadChild_2_RQ.', '.$infant_RQ.' ';
         }
-            
-            
-            
-        
-        
+
+
+
+
+
         //echo $sql; exit;
 
         $bloqueos= $this->loadModel('bloqueos');
@@ -277,7 +273,27 @@ class metodosController extends Controller
                     
                 endforeach;
                 
-                $xmlResponse= array("opcion" => $xmlOpciones);
+                
+                
+                
+                
+                $incluye=false;
+                $sql='EXEC WEB_TraeDetalle_WS '.$mC_idPRG;
+                $var_getIncluye= $bloqueos->exeSP($sql);
+                if($var_getIncluye!=false)
+                {
+                    foreach($var_getIncluye as $columnInc):
+                        $incluye.= mb_convert_encoding(trim($columnInc["nombre"]), 'UTF-8').'\n';
+                    endforeach;
+                }
+                
+                
+                
+                $xmlResponse= array(
+                    "opcion" => $xmlOpciones,
+                    "incluye" => $incluye
+                    );
+                
                 return $xmlResponse;
             }
         }

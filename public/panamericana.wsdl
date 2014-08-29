@@ -223,6 +223,7 @@ xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
                     <s:sequence>
                         		
                         <s:element minOccurs="0" maxOccurs="unbounded" name="opcion" nillable="true" type="tns:nodoOpcion_detalleProgramaRS" />
+                        <s:element minOccurs="1" maxOccurs="1" name="incluye" type="s:string"/>
                     
                     </s:sequence>
                 </s:complexType>
