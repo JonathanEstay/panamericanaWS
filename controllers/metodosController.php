@@ -193,6 +193,15 @@ class metodosController extends Controller
                     $mC_tramo= str_replace('<br />', '\n', mb_convert_encoding(trim($detPRG["Tramo"]), "UTF-8"));
                     
                     
+                    $mC_single= trim($detPRG["single"]);
+                    $mC_doble= trim($detPRG["doble"]);
+                    $mC_triple= trim($detPRG["triple"]);
+                    $mC_qua= trim($detPRG["qua"]);
+                    $mC_chd= trim($detPRG["chd"]);
+                    $mC_chd2= trim($detPRG["chd2"]);
+                    $mC_inf= trim($detPRG["inf"]);
+                    $mC_PF= trim($detPRG["PF"]);
+                    
                     
                     for($i=1; $i<=5; $i++)
                     {
@@ -250,6 +259,17 @@ class metodosController extends Controller
                         "clave" => $mC_clave,
                         "record_c" => $mC_recordC,
                         "tramo" => $mC_tramo,
+                        
+                        "valores" => array(
+                            "single" => $mC_single,
+                            "doble" => $mC_doble,
+                            "triple" => $mC_triple,
+                            "qua" => $mC_qua,
+                            "chd1" => $mC_chd,
+                            "chd2" => $mC_chd2,
+                            "inf" => $mC_inf,
+                            "PF" => $mC_PF
+                        ),
                         
                         "hoteles" => $xmlHoteles
                         );

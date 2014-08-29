@@ -247,6 +247,22 @@ xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
                     <s:element minOccurs="1" maxOccurs="1" name="record_c" type="s:string"/>
                     <s:element minOccurs="1" maxOccurs="1" name="tramo" type="s:string"/>
                     
+                    <s:element name="valores">
+                        <s:complexType>
+                            <s:sequence>
+                                <s:element minOccurs="1" maxOccurs="1" name="single" type="s:string"/>
+                                <s:element minOccurs="1" maxOccurs="1" name="doble" type="s:string"/>
+                                <s:element minOccurs="1" maxOccurs="1" name="triple" type="s:string"/>
+                                <s:element minOccurs="1" maxOccurs="1" name="qua" type="s:string"/>
+                                
+                                <s:element minOccurs="1" maxOccurs="1" name="chd1" type="s:string"/>
+                                <s:element minOccurs="1" maxOccurs="1" name="chd2" type="s:string"/>
+                                <s:element minOccurs="1" maxOccurs="1" name="inf" type="s:string"/>
+                                <s:element minOccurs="1" maxOccurs="1" name="PF" type="s:string"/>
+                            </s:sequence>
+                        </s:complexType>
+                    </s:element>
+                    
                     <s:element name="hoteles">
                         <s:complexType>
                             <s:sequence>
