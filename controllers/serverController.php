@@ -22,9 +22,10 @@ class serverController extends Controller
             $this->loadController('metodosController');
             $server = new SoapServer(ROOT . 'public' . DS . 'panamericana.wsdl');
             $server->setClass('metodosController');
+            
             /*
             $tz = date_default_timezone_get();
-            $header = new SoapHeader('urn:pc_SOAP_return_time', 'get_timezone', $tz)
+            $header = new SoapHeader('urn:pc_SOAP_return_time', 'get_timezone', $tz);
             $server->addSoapHeader($header);
              */
 
