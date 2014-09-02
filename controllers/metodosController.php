@@ -182,6 +182,7 @@ class metodosController extends Controller
                     $mC_moneda= trim($detPRG["moneda"]);
                     $mC_eMayor= trim($detPRG["edadMayor"]);
                     $mC_desde= trim($detPRG["desde"]);
+                    $mC_hasta= trim($detPRG["hasta"]);
                     $mC_iti= str_replace('<br />', '\n', mb_convert_encoding(trim($detPRG["Itinerario"]), "UTF-8"));
                     $mC_itiVuelo= str_replace('<br />', '\n', mb_convert_encoding(trim($detPRG["itinerarioVuelo"]), "UTF-8"));
                     $mC_notaPRG= str_replace('<br />', '\n', mb_convert_encoding(trim($detPRG["notaPRG"]), "UTF-8"));
@@ -250,6 +251,7 @@ class metodosController extends Controller
                         "moneda" => $mC_moneda,
                         "edad_mayor" => $mC_eMayor,
                         "desde" => $mC_desde,
+                        "hasta" => $mC_hasta,
                         "itinerario" => $mC_iti,
                         "itinerario_vuelo" => $mC_itiVuelo,
                         "nota_prg" => $mC_notaPRG,

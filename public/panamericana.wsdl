@@ -242,6 +242,7 @@ xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
                     <s:element minOccurs="1" maxOccurs="1" name="moneda" type="s:string"/>
                     <s:element minOccurs="1" maxOccurs="1" name="edad_mayor" type="s:string"/>
                     <s:element minOccurs="1" maxOccurs="1" name="desde" type="s:string"/>
+                    <s:element minOccurs="1" maxOccurs="1" name="hasta" type="s:string"/>
                     <s:element minOccurs="1" maxOccurs="1" name="itinerario" type="s:string"/>
                     <s:element minOccurs="1" maxOccurs="1" name="itinerario_vuelo" type="s:string"/>
                     
