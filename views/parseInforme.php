@@ -12,7 +12,7 @@ $datosDetBloq= $LM_reserva->getDetBloq($MC_CodigoBloqueo, $mC_TC_file);
 $datosBloq= $LM_reserva->getBloqeos($MC_CodigoBloqueo);
 
 //CARGAR LA PLANTILLA DEL CORREO
-$mC_HTML=file_get_contents( ROOT . 'public' . DS . 'detalle_informe.html');
+$mC_HTML=file_get_contents( ROOT . 'views' . DS . 'detalle_informe.html');
 
 $nodosHTML= array();
 $nodosHTML["fecha_act"]= date("d F Y");

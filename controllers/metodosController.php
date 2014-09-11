@@ -516,7 +516,7 @@ class metodosController extends Controller
                             if($datosFile!=false)
                             {   
                                 //PARSEA INFORME HTML
-                                include ROOT . 'public' . DS . 'parseInforme.php';
+                                include ROOT . 'views' . DS . 'parseInforme.php';
 
                                 $this->getLibrary('class.phpmailer');
                                 $mail = new PHPMailer();
