@@ -64,4 +64,8 @@ class bloqueosModel extends Model
             return false;
         }
     }
+    
+    
+    
+    
 }

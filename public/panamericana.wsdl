@@ -216,10 +216,6 @@ xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
             </s:complexType>
             
             
-            
-            
-            
-            
 	
             <s:element name="detalleProgramaRS">
                 <s:complexType>
@@ -227,6 +223,7 @@ xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
                         		
                         <s:element minOccurs="0" maxOccurs="unbounded" name="opcion" nillable="true" type="tns:nodoOpcion_detalleProgramaRS" />
                         <s:element minOccurs="1" maxOccurs="1" name="incluye" type="s:string"/>
+                        <s:element minOccurs="1" maxOccurs="1" name="total_venta" type="s:string"/>
                     
                     </s:sequence>
                 </s:complexType>
@@ -251,6 +248,10 @@ xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
                     <s:element minOccurs="1" maxOccurs="1" name="clave" type="s:string"/>
                     <s:element minOccurs="1" maxOccurs="1" name="record_c" type="s:string"/>
                     <s:element minOccurs="1" maxOccurs="1" name="tramo" type="s:string"/>
+                    
+                    <s:element minOccurs="1" maxOccurs="1" name="tipo_hab_1" type="s:string"/>
+                    <s:element minOccurs="1" maxOccurs="1" name="tipo_hab_2" type="s:string"/>
+                    <s:element minOccurs="1" maxOccurs="1" name="tipo_hab_3" type="s:string"/>
                     
                     <s:element name="valores">
                         <s:complexType>
@@ -314,6 +315,205 @@ xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
             
             
             
+            
+            
+            
+            
+            
+            <s:element name="usuariosRQ">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element name="Credenciales">
+                            <s:complexType>
+                                <s:sequence>
+                                    <s:element minOccurs="1" maxOccurs="1" name="usuario" type="s:string"/>
+                                    <s:element minOccurs="1" maxOccurs="1" name="password" type="s:string"/>
+                                </s:sequence>
+                            </s:complexType>
+                        </s:element>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+	
+	
+            <s:element name="usuariosRS">
+                <s:complexType>
+                    <s:sequence>				
+                        <s:element minOccurs="1" maxOccurs="1" name="nombre" type="s:string"/>
+                        <s:element minOccurs="1" maxOccurs="1" name="codigo" type="s:string"/>
+                        <s:element minOccurs="1" maxOccurs="1" name="agencia" type="s:string"/>
+                        <s:element minOccurs="1" maxOccurs="1" name="atipoa" type="s:string"/>
+                        <s:element minOccurs="1" maxOccurs="1" name="id_agen" type="s:string"/>
+                        
+                        <s:element minOccurs="1" maxOccurs="1" name="email" type="s:string"/>
+                        <s:element minOccurs="1" maxOccurs="1" name="email_opera" type="s:string"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <s:element name="proceso_reservaRQ">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element name="Credenciales">
+                            <s:complexType>
+                                <s:sequence>
+                                    <s:element minOccurs="1" maxOccurs="1" name="usuario" type="s:string"/>
+                                    <s:element minOccurs="1" maxOccurs="1" name="password" type="s:string"/>
+                                </s:sequence>
+                            </s:complexType>
+                        </s:element>
+                        <s:element name="Parametros">
+                            <s:complexType>
+                                <s:sequence>
+                                    <s:element minOccurs="1" maxOccurs="1" name="Id_Agen" type="s:string"/>
+                                    <s:element minOccurs="1" maxOccurs="1" name="codUsuario" type="s:string"/>
+                                    <s:element minOccurs="1" maxOccurs="1" name="Fecha_In_" type="s:string"/>
+                                    <s:element minOccurs="1" maxOccurs="1" name="CodigoPrograma" type="s:string"/>
+                                    <s:element minOccurs="1" maxOccurs="1" name="CodigoBloqueo" type="s:string"/>
+
+
+                                    <s:element name="hoteles">
+                                        <s:complexType>
+                                            <s:sequence>
+                                                <s:element minOccurs="0" maxOccurs="unbounded" name="hotel" nillable="true" type="tns:Lis_HotelesRQ" />	
+                                            </s:sequence>
+                                        </s:complexType>
+                                    </s:element>
+
+
+                                    <s:element minOccurs="1" maxOccurs="1" name="numHabitaciones" type="s:string"/>
+                                    <s:element minOccurs="1" maxOccurs="1" name="numAdlHab_1" type="s:string"/>
+                                    <s:element minOccurs="1" maxOccurs="1" name="numChildHab_1" type="s:string"/>
+                                    <s:element minOccurs="1" maxOccurs="1" name="numInfHab_1" type="s:string"/>
+                                    <s:element minOccurs="1" maxOccurs="1" name="numAdlHab_2" type="s:string"/>
+                                    <s:element minOccurs="1" maxOccurs="1" name="numChildHab_2" type="s:string"/>
+                                    <s:element minOccurs="1" maxOccurs="1" name="numInfHab_2" type="s:string"/>
+                                    <s:element minOccurs="1" maxOccurs="1" name="numAdlHab_3" type="s:string"/>
+                                    <s:element minOccurs="1" maxOccurs="1" name="numChildHab_3" type="s:string"/>
+                                    <s:element minOccurs="1" maxOccurs="1" name="numInfHab_3" type="s:string"/>
+
+                                    <s:element minOccurs="1" maxOccurs="1" name="atipo" type="s:string"/>
+                                    <s:element minOccurs="1" maxOccurs="1" name="Moneda" type="s:string"/>
+
+                                    
+                                    <s:element name="Pasajeros">
+                                        <s:complexType>
+                                            <s:sequence>
+                                                <s:element minOccurs="0" maxOccurs="unbounded" name="Pasajero" nillable="true" type="tns:Lis_PasajerosRQ" />	
+                                            </s:sequence>
+                                        </s:complexType>
+                                    </s:element>
+
+
+                                    <s:element minOccurs="1" maxOccurs="1" name="tipoHabitaciones_1" type="s:string"/>
+                                    <s:element minOccurs="1" maxOccurs="1" name="tipoHabitaciones_2" type="s:string"/>
+                                    <s:element minOccurs="1" maxOccurs="1" name="tipoHabitaciones_3" type="s:string"/>
+
+                                    <s:element minOccurs="1" maxOccurs="1" name="clave" type="s:string"/>
+                                    <s:element minOccurs="1" maxOccurs="1" name="datos" type="s:string"/>
+                                    <s:element minOccurs="1" maxOccurs="1" name="totventa" type="s:string"/>
+                                </s:sequence>
+                            </s:complexType>
+                        </s:element>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:complexType name="Lis_HotelesRQ">
+                <s:sequence>
+                    <s:element minOccurs="1" maxOccurs="1" name="CodigoHotel" type="s:string"/>
+                    <s:element minOccurs="1" maxOccurs="1" name="FechaIn" type="s:string"/>
+                    <s:element minOccurs="1" maxOccurs="1" name="NumNoches" type="s:string"/>
+                    <s:element minOccurs="1" maxOccurs="1" name="TipoH" type="s:string"/>
+                    <s:element minOccurs="1" maxOccurs="1" name="PA" type="s:string"/>
+                    <s:element minOccurs="1" maxOccurs="1" name="conVn" type="s:string"/>
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="Lis_PasajerosRQ">
+                <s:sequence>
+                    <s:element minOccurs="1" maxOccurs="1" name="NombrePasajero" type="s:string"/>
+                    <s:element minOccurs="1" maxOccurs="1" name="Rut" type="s:string"/>
+                    <s:element minOccurs="1" maxOccurs="1" name="F_nacimiento" type="s:string"/>
+                    <s:element minOccurs="1" maxOccurs="1" name="TipoPasajero" type="s:string"/>
+                    <s:element minOccurs="1" maxOccurs="1" name="NombrePasajero_Inf" type="s:string"/>
+                    <s:element minOccurs="1" maxOccurs="1" name="Rut_Inf" type="s:string"/>
+                    <s:element minOccurs="1" maxOccurs="1" name="F_nacimiento_Inf" type="s:string"/>
+                    <s:element minOccurs="1" maxOccurs="1" name="tratoPax" type="s:string"/>
+                </s:sequence>
+            </s:complexType>
+            
+            
+	
+	
+            <s:element name="proceso_reservaRS">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="1" maxOccurs="1" name="CODIGO" type="s:string"/>
+                        <s:element minOccurs="1" maxOccurs="1" name="MENSAJE" type="s:string"/>
+                        <s:element minOccurs="1" maxOccurs="1" name="FILE" type="s:string"/>
+                        <s:element minOccurs="1" maxOccurs="1" name="HTML" type="s:string"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
 	
 	
 	
@@ -336,6 +536,22 @@ xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
     </wsdl:message>
     <wsdl:message name="listadoBloqueosRQSoapOut">
         <wsdl:part name="parameters" element="tns:listadoBloqueosRS"/>
+    </wsdl:message>
+    
+    
+    <wsdl:message name="usuariosRQSoapIn">
+        <wsdl:part name="parameters" element="tns:usuariosRQ"/>
+    </wsdl:message>
+    <wsdl:message name="usuariosRQSoapOut">
+        <wsdl:part name="parameters" element="tns:usuariosRS"/>
+    </wsdl:message>
+    
+    
+    <wsdl:message name="proceso_reservaRQSoapIn">
+        <wsdl:part name="parameters" element="tns:proceso_reservaRQ"/>
+    </wsdl:message>
+    <wsdl:message name="proceso_reservaRQSoapOut">
+        <wsdl:part name="parameters" element="tns:proceso_reservaRS"/>
     </wsdl:message>
     
     
@@ -374,6 +590,24 @@ xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
         </wsdl:operation>
         
         
+        <wsdl:operation name="usuariosRQ">
+            <wsdl:documentation xmlns:wsdl='http://schemas.xmlsoap.org/wsdl/'>
+                El Metodo "usuariosRQ" Muestra el Listado de usuarios.
+            </wsdl:documentation>
+            <wsdl:input message="tns:usuariosRQSoapIn"/>
+            <wsdl:output message="tns:usuariosRQSoapOut"/>
+        </wsdl:operation>
+        
+        
+        <wsdl:operation name="proceso_reservaRQ">
+            <wsdl:documentation xmlns:wsdl='http://schemas.xmlsoap.org/wsdl/'>
+                El Metodo "proceso_reservaRQ" .
+            </wsdl:documentation>
+            <wsdl:input message="tns:proceso_reservaRQSoapIn"/>
+            <wsdl:output message="tns:proceso_reservaRQSoapOut"/>
+        </wsdl:operation>
+        
+        
         <wsdl:operation name="detalleProgramaRQ">
             <wsdl:documentation xmlns:wsdl='http://schemas.xmlsoap.org/wsdl/'>
                 El Metodo "detalleProgramaRQ" Muestra el Listado de bloqueos que se encuentran disponibles.
@@ -405,6 +639,28 @@ xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
 
         <wsdl:operation name="listadoBloqueosRQ">
             <soap:operation soapAction="http://oris-webservice/soap/export/listadoBloqueosRQ" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        
+        
+        <wsdl:operation name="usuariosRQ">
+            <soap:operation soapAction="http://oris-webservice/soap/export/usuariosRQ" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        
+        
+        <wsdl:operation name="proceso_reservaRQ">
+            <soap:operation soapAction="http://oris-webservice/soap/export/proceso_reservaRQ" style="document"/>
             <wsdl:input>
                 <soap:body use="literal"/>
             </wsdl:input>

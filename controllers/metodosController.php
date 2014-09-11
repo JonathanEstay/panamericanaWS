@@ -192,6 +192,10 @@ class metodosController extends Controller
                     $mC_recordC= trim($detPRG["record_c"]);
                     $mC_tramo= str_replace('<br />', '\n', mb_convert_encoding(trim($detPRG["Tramo"]), "UTF-8"));
                     
+                    $mC_tipo_hab_1= trim($detPRG["tipoHab_1"]);
+                    $mC_tipo_hab_2= trim($detPRG["tipoHab_2"]);
+                    $mC_tipo_hab_3= trim($detPRG["tipoHab_3"]);
+                    
                     
                     $mC_single= trim($detPRG["single"]);
                     $mC_doble= trim($detPRG["doble"]);
@@ -201,6 +205,7 @@ class metodosController extends Controller
                     $mC_chd2= trim($detPRG["chd2"]);
                     $mC_inf= trim($detPRG["inf"]);
                     $mC_PF= trim($detPRG["PF"]);
+                    
                     
                     
                     for($i=1; $i<=5; $i++)
@@ -261,6 +266,10 @@ class metodosController extends Controller
                         "record_c" => $mC_recordC,
                         "tramo" => $mC_tramo,
                         
+                        "tipo_hab_1" => $mC_tipo_hab_1,
+                        "tipo_hab_2" => $mC_tipo_hab_2,
+                        "tipo_hab_3" => $mC_tipo_hab_3,
+                        
                         "valores" => array(
                             "single" => $mC_single,
                             "doble" => $mC_doble,
@@ -293,13 +302,269 @@ class metodosController extends Controller
                 }
                 
                 
+                $totVenta=(trim($detPRG["vHab_1"])+trim($detPRG["vHab_2"])+trim($detPRG["vHab_3"]));
                 
                 $xmlResponse= array(
                     "opcion" => $xmlOpciones,
-                    "incluye" => $incluye
+                    "incluye" => $incluye,
+                    "total_venta" => $totVenta
                     );
                 
                 return $xmlResponse;
+            }
+        }
+    }
+    
+    
+    public function usuariosRQ($args)
+    {
+        $args = (array)$args;
+
+        $usuarioRQ= trim($args["Credenciales"]->usuario);
+        $passwordRQ= trim($args["Credenciales"]->password);
+
+        
+        //Cargando el modelo usuarios
+        $usuarios= $this->loadModel('usuarios');
+        
+        
+        $var_getUser= $usuarios->getUsuario($usuarioRQ);
+        if($var_getUser==false)
+        {
+            throw new SoapFault("Sin registros", null, "Usuario o password son incorrectos");
+        }
+        else
+        {
+            if(trim($var_getUser[0]['clave'])==$usuarioRQ)
+            {
+                if(trim($var_getUser[0]['pasword'])==$passwordRQ)
+                {
+                    $mC_nombre= trim($var_getUser[0]['nombre']);
+                    $mC_codigo= trim($var_getUser[0]['codigo']);
+                    $mC_agencia= trim($var_getUser[0]['agencia']);
+                    $mC_atipoa= trim($var_getUser[0]['atipoa']);
+                    $mC_id_agen= trim($var_getUser[0]['id_agen']);
+                    $mC_email= trim($var_getUser[0]['email']);
+                    $mC_email_opera= trim($var_getUser[0]['email_opera']);
+                    
+                    $xmlResponse= array(
+                        "nombre" => $mC_nombre,
+                        "codigo" => $mC_codigo,
+                        "agencia" => $mC_agencia,
+                        "atipoa" => $mC_atipoa,
+                        "id_agen" => $mC_id_agen,
+                        "email" => $mC_email,
+                        "email_opera" => $mC_email_opera
+                        );
+
+                    return $xmlResponse;
+                }
+                else
+                {
+                    throw new SoapFault("Sin registros", null, "Usuario o password son incorrectos");
+                }
+            }
+            else
+            {
+                throw new SoapFault("Sin registros", null, "Usuario o password son incorrectos");
+            }
+        }
+        
+    }
+    
+    
+    
+    
+    
+    public function proceso_reservaRQ($args)
+    {
+        $args = (array)$args;
+
+        $usuarioRQ= trim($args["Credenciales"]->usuario);
+        $passwordRQ= trim($args["Credenciales"]->password);
+
+        
+        //Cargando el modelo usuarios
+        $usuarios= $this->loadModel('usuarios');
+        
+        
+        $var_getUser= $usuarios->getUsuario($usuarioRQ);
+        if($var_getUser==false)
+        {
+            throw new SoapFault("Sin registros", null, "Usuario o password son incorrectos");
+        }
+        else
+        {
+            if(trim($var_getUser[0]['clave'])==$usuarioRQ)
+            {
+                if(trim($var_getUser[0]['pasword'])==$passwordRQ)
+                {
+                    
+                    $MC_correoVendedor= trim($args["Parametros"]->correo_vendedor);
+                    
+                    $MC_Id_Agen= trim($var_getUser[0]['id_agen']);
+                    $MC_codUsuario= trim($var_getUser[0]['clave']);
+                    
+                    $MC_Fecha_In_= trim($args["Parametros"]->Fecha_In_);
+                    $MC_CodigoPrograma= trim($args["Parametros"]->CodigoPrograma);
+                    $MC_CodigoBloqueo= trim($args["Parametros"]->CodigoBloqueo);
+                    
+                    
+                    $sql="exec WEB_ORIS_CREA_FILE_WS_TESTING '$MC_Id_Agen', '$MC_codUsuario', '$MC_Fecha_In_', '$MC_CodigoPrograma', '$MC_CodigoBloqueo' ";
+                    
+                    
+                    /* HOTELES */
+                    for($i=0; $i<5; $i++)
+                    {
+                        $MC_CodigoHotel= $args["Parametros"]->hoteles->hotel[$i]->CodigoHotel;
+                        $MC_FechaIn= $args["Parametros"]->hoteles->hotel[$i]->FechaIn;
+                        $MC_NumNoches= $this->IntConvert($args["Parametros"]->hoteles->hotel[$i]->NumNoches);
+                        $MC_TipoH= $args["Parametros"]->hoteles->hotel[$i]->TipoH;
+                        $MC_PA= $args["Parametros"]->hoteles->hotel[$i]->PA;
+                        $MC_conVn= $args["Parametros"]->hoteles->hotel[$i]->conVn;
+                        
+                        $sql.=", '$MC_CodigoHotel', '$MC_FechaIn', '$MC_NumNoches', '$MC_TipoH', '$MC_PA', '$MC_conVn' ";
+                    }
+                    
+                    
+                    
+                    
+                    $MC_numHab= $this->IntConvert($args["Parametros"]->numHabitaciones);
+                    $sql.=", '$MC_numHab' ";
+
+                    $sql.=", '".$this->IntConvert($args["Parametros"]->numAdlHab_1)."' ";
+                    $sql.=", '".$this->IntConvert($args["Parametros"]->numChildHab_1)."' ";
+                    $sql.=", '".$this->IntConvert($args["Parametros"]->numInfHab_1)."' ";
+                    
+                    
+                    if($MC_numHab==3)
+                    {
+                        $sql.=", '".$this->IntConvert($args["Parametros"]->numAdlHab_2)."' ";
+                        $sql.=", '".$this->IntConvert($args["Parametros"]->numChildHab_2)."' ";
+                        $sql.=", '".$this->IntConvert($args["Parametros"]->numInfHab_2)."' ";
+                        
+                        $sql.=", '".$this->IntConvert($args["Parametros"]->numAdlHab_3)."' ";
+                        $sql.=", '".$this->IntConvert($args["Parametros"]->numChildHab_3)."' ";
+                        $sql.=", '".$this->IntConvert($args["Parametros"]->numInfHab_3)."' ";
+                    }
+                    else if($MC_numHab==2)
+                    {
+                        $sql.=", '".$this->IntConvert($args["Parametros"]->numAdlHab_2)."' ";
+                        $sql.=", '".$this->IntConvert($args["Parametros"]->numChildHab_2)."' ";
+                        $sql.=", '".$this->IntConvert($args["Parametros"]->numInfHab_2)."' ";
+                        $sql.=", '0', '0', '0' ";
+                    }
+                    else
+                    {
+                        $sql.=", '0', '0', '0', '0', '0', '0' ";
+                    }
+                    
+                    
+                    $MC_atipo= trim($args["Parametros"]->atipo);
+                    $MC_moneda= trim($args["Parametros"]->Moneda);
+                    $sql.=", '$MC_atipo', '$MC_moneda' ";
+                    
+                    
+
+                    
+                    /* PASAJEROS */
+                    for($i=0; $i<10; $i++)
+                    {
+                        $MC_nombreAdl= $args["Parametros"]->Pasajeros->Pasajero[$i]->NombrePasajero;
+                        $MC_rut= $args["Parametros"]->Pasajeros->Pasajero[$i]->Rut;
+                        $MC_fNac= $args["Parametros"]->Pasajeros->Pasajero[$i]->F_nacimiento;
+                        $MC_tipoPas= $args["Parametros"]->Pasajeros->Pasajero[$i]->TipoPasajero;
+                        
+                        $MC_nombreInf= $args["Parametros"]->Pasajeros->Pasajero[$i]->NombrePasajero_Inf;
+                        $MC_rutInf= $args["Parametros"]->Pasajeros->Pasajero[$i]->Rut_Inf;
+                        $MC_fNacInf= $args["Parametros"]->Pasajeros->Pasajero[$i]->F_nacimiento_Inf;
+                        
+                        $MC_tratoPax= $args["Parametros"]->Pasajeros->Pasajero[$i]->tratoPax;
+                        
+                        
+                        $sql.=", '$MC_nombreAdl', '$MC_rut', '$MC_fNac', '$MC_tipoPas', '$MC_nombreInf', '$MC_rutInf', '$MC_fNacInf', '$MC_tratoPax' ";
+                    }
+                    
+                    
+                    $sql.=", '".trim($args["Parametros"]->tipoHabitaciones_1)."', '".trim($args["Parametros"]->tipoHabitaciones_2)."', '".trim($args["Parametros"]->tipoHabitaciones_3)."' ";
+                    
+                    
+                    $sql.=", '".trim($args["Parametros"]->clave)."', '".trim($args["Parametros"]->datos)."', '".trim($args["Parametros"]->totventa)."' ";
+                    
+                    
+                    
+                    //echo $sql; exit; 
+                    
+                    
+                    $procesoReserva= $usuarios->exeSP($sql);
+                    if($procesoReserva!=false)
+                    {
+                        $mC_TC_codigo= trim($procesoReserva[0]["CODIGO"]);
+                        $mC_TC_mensaje= trim($procesoReserva[0]["MENSAJE"]);
+                        $mC_TC_file= trim($procesoReserva[0]["FILE"]);
+                        $mC_HTML='';
+                        
+                        
+                        //RESERVA EXITOSA
+                        if($mC_TC_codigo==1)
+                        {
+                            //CARGA MODELO DE RESERVA
+                            $LM_reserva= $this->loadModel('reserva');
+                            
+                            //TRAER DATOS DE LA TABLA FILE
+                            $datosFile= $LM_reserva->getFile($mC_TC_file);//190306
+                            if($datosFile!=false)
+                            {   
+                                //PARSEA INFORME HTML
+                                include ROOT . 'public' . DS . 'parseInforme.php';
+
+                                $this->getLibrary('class.phpmailer');
+                                $mail = new PHPMailer();
+                                $mail->Host = trim("190.196.23.232");
+                                $mail->Port = 25;
+                                $mail->From = 'panamericana@online.panamericanaturismo.cl';
+                                $mail->FromName = 'Panamericana Online';
+                                $mail->CharSet = 'UTF-8';
+                                $mail->Subject = 'Confirmacion de reserva online: '.$mC_TC_file;
+                                $mail->MsgHTML($mC_HTML);
+                                $mail->AltBody = 'Su servidor de correo no soporta html';
+                                $mail->AddAddress($MC_correoVendedor, "");
+                                $mail->AddCC(trim($var_getUser[0]['email_opera']));
+                                $mail->SMTPAuth = true;
+                                $mail->Username = trim("online@panamericanaturismo.cl");
+                                $mail->Password = trim("Fe90934");
+                                //$mail->Send();
+                            }
+                            else
+                            {
+                                $mC_HTML='Error al enviar el mail';
+                            }
+                        }
+                        
+                        
+                        $xmlResponse= array(
+                            "CODIGO" => $mC_TC_codigo,
+                            "MENSAJE" => $mC_TC_mensaje,
+                            "FILE" => $mC_TC_file,
+                            "HTML" => $mC_HTML
+                        );
+                        
+                        return $xmlResponse;
+                    }
+                    else
+                    {
+                        throw new SoapFault("Sin registros", null, "Error al realizar la reserva");
+                    }
+                    
+                }
+                else
+                {
+                    throw new SoapFault("Sin registros", null, "Usuario o password son incorrectos");
+                }
+            }
+            else
+            {
+                throw new SoapFault("Sin registros", null, "Usuario o password son incorrectos");
             }
         }
     }
