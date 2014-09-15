@@ -17,18 +17,18 @@ $mC_HTML=file_get_contents( ROOT . 'views' . DS . 'detalle_informe.html');
 $nodosHTML= array();
 $nodosHTML["fecha_act"]= date("d F Y");
 $nodosHTML["file"]= $mC_TC_file;
-$nodosHTML["agencia"]= trim($datosFile[0]['agencia']);
+$nodosHTML["agencia"]= mb_convert_encoding(trim($datosFile[0]['agencia']), "UTF-8");
 
 
 //$nodosHTML["nombre_user"]= trim($var_getUser[0]['nombre']);
 $nodosHTML["nombre_user"]= trim($datosFile[0]['vage']);
 
 
-$nodosHTML["nombre_pax"]= trim($datosFile[0]['nompax']);
+$nodosHTML["nombre_pax"]= mb_convert_encoding(trim($datosFile[0]['nompax']), "UTF-8");
 $nodosHTML["num_pax"]= trim($datosFile[0]['npax']);
 $nodosHTML["fecha_viaje"]= trim($datosFile[0]['f_viaje']);
 
-$nodosHTML["nombre_prog"]= $datosPackages[0]['nombre'];
+$nodosHTML["nombre_prog"]= mb_convert_encoding(trim($datosPackages[0]['nombre']), "UTF-8");
 
 
 //INCLUYE 
@@ -43,7 +43,7 @@ if($datosDetFile!=false)
                     intval($columnDF["pax_c2"]));
 
         $mC_incluye.='<tr>
-<td width="80%" class="Base"><strong>&middot;</strong>&nbsp; '.$mC_totPax.' Pax '.trim($columnDF["nombre"]).'<strong></strong></td>
+<td width="80%" class="Base"><strong>&middot;</strong>&nbsp; '.$mC_totPax.' Pax '.mb_convert_encoding(trim($columnDF["nombre"]), "UTF-8").'<strong></strong></td>
 <td width="10%" class="Base">';
 
         if(trim($columnDF["in_"]) != "01/01/1900")
@@ -122,7 +122,7 @@ if($datosDetBloq!=false)
         }
 
         $mC_detBloq.=	'</td>
-                <td>'.str_replace('/', ' ', trim($columnDB["nompax"])).'</td>
+                <td>'.mb_convert_encoding(str_replace('/', ' ', trim($columnDB["nompax"])), "UTF-8").'</td>
                 <td>'.trim($columnDB["rut"]).'</td>
                 <td>';
 
@@ -136,7 +136,7 @@ if($datosDetBloq!=false)
         }
 
         $mC_detBloq.='</td>
-                <td>'.trim($columnDB["ninfant"]).'</td>
+                <td>'.mb_convert_encoding(trim($columnDB["ninfant"]), "UTF-8").'</td>
                 <td>'.trim($columnDB["rut_inf"]).'</td>
                 <td>';
 
@@ -157,7 +157,7 @@ if($datosDetBloq!=false)
 }
 
 
-$nodosHTML["itinerario_vuelo"]=str_replace("\n", "<br>", trim($datosBloq[0]['NOTAS']));
+$nodosHTML["itinerario_vuelo"]=mb_convert_encoding(str_replace("\n", "<br>", trim($datosBloq[0]['NOTAS'])), "UTF-8");
 
 foreach($nodosHTML as $nombreNodo=>$valorNodo):
     $mC_HTML= str_replace('{'.$nombreNodo.'}', $valorNodo, $mC_HTML);

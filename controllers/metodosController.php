@@ -20,10 +20,10 @@ class metodosController extends Controller
 
     public function listadoBloqueosRQ($args)
     {
-        /* 	
+        /*
         Rescatando Object enviado desde el WSDL hacia $args = (array)$args;
         $args["Credenciales"]->Usuario 
-        */   
+        */
         $args = (array)$args;
 
         
