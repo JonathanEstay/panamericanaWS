@@ -18,7 +18,11 @@ $nodosHTML= array();
 $nodosHTML["fecha_act"]= date("d F Y");
 $nodosHTML["file"]= $mC_TC_file;
 $nodosHTML["agencia"]= trim($datosFile[0]['agencia']);
-$nodosHTML["nombre_user"]= trim($var_getUser[0]['nombre']);
+
+
+//$nodosHTML["nombre_user"]= trim($var_getUser[0]['nombre']);
+$nodosHTML["nombre_user"]= trim($datosFile[0]['vage']);
+
 
 $nodosHTML["nombre_pax"]= trim($datosFile[0]['nompax']);
 $nodosHTML["num_pax"]= trim($datosFile[0]['npax']);
@@ -153,10 +157,9 @@ if($datosDetBloq!=false)
 }
 
 
+$nodosHTML["itinerario_vuelo"]=str_replace("\n", "<br>", trim($datosBloq[0]['NOTAS']));
 
-$nodosHTML["itinerario_vuelo"]=str_replace("\n", "<br>", trim($datosBloq[0]['notas']));
-
-foreach($arrayHTML as $nombreNodo=>$valorNodo):
+foreach($nodosHTML as $nombreNodo=>$valorNodo):
     $mC_HTML= str_replace('{'.$nombreNodo.'}', $valorNodo, $mC_HTML);
 endforeach;
 ?>

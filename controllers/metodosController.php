@@ -401,6 +401,7 @@ class metodosController extends Controller
                 {
                     
                     $MC_correoVendedor= trim($args["Parametros"]->correo_vendedor);
+                    $MC_correoOculto= trim($args["Parametros"]->correo_oculto);
                     
                     $MC_Id_Agen= trim($var_getUser[0]['id_agen']);
                     $MC_codUsuario= trim($var_getUser[0]['clave']);
@@ -409,8 +410,10 @@ class metodosController extends Controller
                     $MC_CodigoPrograma= trim($args["Parametros"]->CodigoPrograma);
                     $MC_CodigoBloqueo= trim($args["Parametros"]->CodigoBloqueo);
                     
+                    $mC_TC_vage= trim($args["Parametros"]->vage);
                     
-                    $sql="exec WEB_ORIS_CREA_FILE_WS_TESTING '$MC_Id_Agen', '$MC_codUsuario', '$MC_Fecha_In_', '$MC_CodigoPrograma', '$MC_CodigoBloqueo' ";
+                    //exec WEB_ORIS_CREA_FILE_WS_TESTING
+                    $sql="exec WEB_ORIS_CREA_FILE_WS '$MC_Id_Agen', '$MC_codUsuario', '$MC_Fecha_In_', '$MC_CodigoPrograma', '$MC_CodigoBloqueo' ";
                     
                     
                     /* HOTELES */
@@ -492,7 +495,7 @@ class metodosController extends Controller
                     $sql.=", '".trim($args["Parametros"]->clave)."', '".trim($args["Parametros"]->datos)."', '".trim($args["Parametros"]->totventa)."' ";
                     
                     
-                    
+                    $sql.=", '".$mC_TC_vage."' ";
                     //echo $sql; exit; 
                     
                     
@@ -510,9 +513,11 @@ class metodosController extends Controller
                         {
                             //CARGA MODELO DE RESERVA
                             $LM_reserva= $this->loadModel('reserva');
+                            //$mC_TC_file='190306'; $MC_CodigoBloqueo='2014FLN019';
+                            
                             
                             //TRAER DATOS DE LA TABLA FILE
-                            $datosFile= $LM_reserva->getFile($mC_TC_file);//190306
+                            $datosFile= $LM_reserva->getFile($mC_TC_file);
                             if($datosFile!=false)
                             {   
                                 //PARSEA INFORME HTML
@@ -527,13 +532,20 @@ class metodosController extends Controller
                                 $mail->CharSet = 'UTF-8';
                                 $mail->Subject = 'Confirmacion de reserva online: '.$mC_TC_file;
                                 $mail->MsgHTML($mC_HTML);
-                                $mail->AltBody = 'Su servidor de correo no soporta html';
+                                
+                                //$mail->AltBody = 'Su servidor de correo no soporta html';
                                 $mail->AddAddress($MC_correoVendedor, "");
-                                $mail->AddCC(trim($var_getUser[0]['email_opera']));
+                                //$mail->AddAddress("destino2@correo.com","Nombre 02"); 
+
+                                //$mail->AddCC(trim($var_getUser[0]['email_opera']));
+                                $mail->AddCC('j.estay1988@gmail.com');
+                                
+                                $mail->AddBCC($MC_correoOculto);
+                                
                                 $mail->SMTPAuth = true;
                                 $mail->Username = trim("online@panamericanaturismo.cl");
                                 $mail->Password = trim("Fe90934");
-                                //$mail->Send();
+                                $mail->Send();
                             }
                             else
                             {

@@ -85,6 +85,7 @@ class reservaModel extends Model
     public function getBloqeos($codBloq)
     {
         $sql = 'SELECT * FROM bloqueos WHERE record_c = "'.$codBloq.'" ';
+        //echo $sql;
         
         $detUser= $this->_db->consulta($sql);
         if($this->_db->numRows($detUser)>0)
