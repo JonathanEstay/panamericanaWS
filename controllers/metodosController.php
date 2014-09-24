@@ -495,7 +495,9 @@ class metodosController extends Controller
                     $sql.=", '".trim($args["Parametros"]->clave)."', '".trim($args["Parametros"]->datos)."', '".trim($args["Parametros"]->totventa)."' ";
                     
                     
-                    $sql.=", '".$mC_TC_vage."' ";
+                    
+                    
+                    $sql.=", '".$mC_TC_vage."', '".$MC_correoVendedor."' ";
                     //echo $sql; exit; 
                     
                     
@@ -537,8 +539,8 @@ class metodosController extends Controller
                                 $mail->AddAddress($MC_correoVendedor, "");
                                 //$mail->AddAddress("destino2@correo.com","Nombre 02"); 
 
-                                //$mail->AddCC(trim($var_getUser[0]['email_opera']));
-                                $mail->AddCC('j.estay1988@gmail.com');
+                                $mail->AddCC(trim($var_getUser[0]['email_opera']));
+                                //$mail->AddCC('j.estay1988@gmail.com');
                                 
                                 $mail->AddBCC($MC_correoOculto);
                                 

@@ -159,6 +159,7 @@ if($datosDetBloq!=false)
 
 $nodosHTML["itinerario_vuelo"]=mb_convert_encoding(str_replace("\n", "<br>", trim($datosBloq[0]['NOTAS'])), "UTF-8");
 
+
 foreach($nodosHTML as $nombreNodo=>$valorNodo):
     $mC_HTML= str_replace('{'.$nombreNodo.'}', $valorNodo, $mC_HTML);
 endforeach;
