@@ -505,7 +505,7 @@ class metodosController extends Controller
                     if($procesoReserva!=false)
                     {
                         $mC_TC_codigo= trim($procesoReserva[0]["CODIGO"]);
-                        $mC_TC_mensaje= trim($procesoReserva[0]["MENSAJE"]);
+                        $mC_TC_mensaje= mb_convert_encoding(trim($procesoReserva[0]["MENSAJE"]), "UTF-8");
                         $mC_TC_file= trim($procesoReserva[0]["FILE"]);
                         $mC_HTML='';
                         
