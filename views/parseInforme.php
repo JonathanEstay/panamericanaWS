@@ -9,7 +9,7 @@
 $datosPackages= $LM_reserva->getPackages($MC_CodigoPrograma);
 $datosDetFile= $LM_reserva->getDetFile($mC_TC_file);
 $datosDetBloq= $LM_reserva->getDetBloq($MC_CodigoBloqueo, $mC_TC_file);
-$datosBloq= $LM_reserva->getBloqeos($MC_CodigoBloqueo);
+$datosBloq= $LM_reserva->getBloqueos($MC_CodigoBloqueo);
 
 //CARGAR LA PLANTILLA DEL CORREO
 $mC_HTML=file_get_contents( ROOT . 'views' . DS . 'detalle_informe.html');
