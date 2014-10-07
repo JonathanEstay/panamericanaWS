@@ -74,6 +74,7 @@ class metodosController extends Controller
                     $mC_nombreOpe= mb_convert_encoding(trim($detBloq["nombreope"]), "UTF-8");
                     $mC_cuantos= trim($detBloq["CUANTOS"]);
                     $mC_codOris= trim($detBloq["codigoOris"]);
+                    $mC_cntPrg= trim($detBloq["cnt_prg"]);
                     
                     
                     $xmlListadoBloqueos[]= array(
@@ -93,7 +94,8 @@ class metodosController extends Controller
                         "nombre_prog" => $mC_nombreProg,
                         "nombre_ope" => $mC_nombreOpe,
                         "CUANTOS" => $mC_cuantos,
-                        "codigo_oris" => $mC_codOris
+                        "codigo_oris" => $mC_codOris,
+                        "cnt_prg" => $mC_cntPrg
                         );
                 endforeach;
 
