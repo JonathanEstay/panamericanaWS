@@ -21,8 +21,8 @@ class metodosController extends Controller
     public function listadoBloqueosRQ($args)
     {
         /*
-        Rescatando Object enviado desde el WSDL hacia $args = (array)$args;
-        $args["Credenciales"]->Usuario 
+            Rescatando Object enviado desde el WSDL hacia $args = (array)$args;
+            $args["Credenciales"]->Usuario 
         */
         $args = (array)$args;
 
@@ -373,6 +373,53 @@ class metodosController extends Controller
     }
     
     
+    public function programasRQ($args)
+    {
+        $args = (array)$args;
+        
+        $usuarioRQ= trim($args["Credenciales"]->usuario);
+        $passwordRQ= trim($args["Credenciales"]->password);
+        
+        if($usuarioRQ=='panamericana' && $passwordRQ=='panaWS')
+        {
+            //Cargando el modelo usuarios
+            $programas= $this->loadModel('programas');
+            $record_cRQ= trim($args["Parametros"]->record_c);
+            
+            $listadoProg= $programas->getProgramas($record_cRQ);
+            if($listadoProg==false)
+            {
+                throw new SoapFault("Sin registros", null, "No se encontraron programas asociados a ese record_c");
+            }
+            else
+            {
+                foreach($listadoProg as $detProg):
+                    $mC_idProg= trim($detProg["id"]);
+                    $mC_codigoProg= trim($detProg["codigo"]);
+                    $mC_nombreProg= mb_convert_encoding(trim($detProg["nombre"]), "UTF-8");
+                    $mC_nota= mb_convert_encoding(trim($detProg["nota"]), "UTF-8");
+                    
+                    
+                    $xmlListadoProgramas[]= array(
+                        "id" => $mC_idProg,
+                        "codigo" => $mC_codigoProg,
+                        "nombre" => $mC_nombreProg,
+                        "nota" =>  $mC_nota
+                        );
+                endforeach;
+
+
+                $xmlResponse= array("Programa" => $xmlListadoProgramas);
+                return $xmlResponse;
+            }
+        }
+        else
+        {
+            throw new SoapFault('Sin registros', null, 'Usuario o password son incorrectos');
+        }
+        
+        
+    }
     
     
     
