@@ -524,12 +524,12 @@ class metodosController extends Controller
                     /* PASAJEROS */
                     for($i=0; $i<10; $i++)
                     {
-                        $MC_nombreAdl= $args["Parametros"]->Pasajeros->Pasajero[$i]->NombrePasajero;
+                        $MC_nombreAdl= mb_convert_encoding($args["Parametros"]->Pasajeros->Pasajero[$i]->NombrePasajero, "ISO-8859-1", "UTF-8");
                         $MC_rut= $args["Parametros"]->Pasajeros->Pasajero[$i]->Rut;
                         $MC_fNac= $args["Parametros"]->Pasajeros->Pasajero[$i]->F_nacimiento;
                         $MC_tipoPas= $args["Parametros"]->Pasajeros->Pasajero[$i]->TipoPasajero;
                         
-                        $MC_nombreInf= $args["Parametros"]->Pasajeros->Pasajero[$i]->NombrePasajero_Inf;
+                        $MC_nombreInf= mb_convert_encoding($args["Parametros"]->Pasajeros->Pasajero[$i]->NombrePasajero_Inf, "ISO-8859-1", "UTF-8");
                         $MC_rutInf= $args["Parametros"]->Pasajeros->Pasajero[$i]->Rut_Inf;
                         $MC_fNacInf= $args["Parametros"]->Pasajeros->Pasajero[$i]->F_nacimiento_Inf;
                         
@@ -543,7 +543,7 @@ class metodosController extends Controller
                     $sql.=", '".trim($args["Parametros"]->tipoHabitaciones_1)."', '".trim($args["Parametros"]->tipoHabitaciones_2)."', '".trim($args["Parametros"]->tipoHabitaciones_3)."' ";
                     
                     
-                    $sql.=", '".trim($args["Parametros"]->clave)."', '".trim($args["Parametros"]->datos)."', '".trim($args["Parametros"]->totventa)."' ";
+                    $sql.=", '".trim($args["Parametros"]->clave)."', '".mb_convert_encoding(trim($args["Parametros"]->datos), "ISO-8859-1", "UTF-8")."', '".trim($args["Parametros"]->totventa)."' ";
                     
                     
                     

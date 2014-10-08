@@ -771,8 +771,8 @@ xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
 	
     <wsdl:service name="panamericana">
         <wsdl:port name="panamericana" binding="tns:panamericana">
-            <soap:address location="http://oristest.panamericanaturismo.cl/panamericanaWS/server/panamericana"/>
-            <!-- <soap:address location="http://online.panamericanaturismo.cl/panamericanaWS/server/panamericana"/> -->
+            <!-- <soap:address location="http://oristest.panamericanaturismo.cl/panamericanaWS/server/panamericana"/> -->
+            <soap:address location="http://online.panamericanaturismo.cl/panamericanaWS/server/panamericana"/>
         </wsdl:port>		
     </wsdl:service>
 

@@ -24,7 +24,7 @@ $nodosHTML["agencia"]= mb_convert_encoding(trim($datosFile[0]['agencia']), "UTF-
 $nodosHTML["nombre_user"]= trim($datosFile[0]['vage']);
 
 
-$nodosHTML["nombre_pax"]= mb_convert_encoding(trim($datosFile[0]['nompax']), "UTF-8");
+$nodosHTML["nombre_pax"]= mb_convert_encoding(trim($datosFile[0]['nompax']),  "UTF-8");
 $nodosHTML["num_pax"]= trim($datosFile[0]['npax']);
 $nodosHTML["fecha_viaje"]= trim($datosFile[0]['f_viaje']);
 
@@ -43,7 +43,7 @@ if($datosDetFile!=false)
                     intval($columnDF["pax_c2"]));
 
         $mC_incluye.='<tr>
-<td width="80%" class="Base"><strong>&middot;</strong>&nbsp; '.$mC_totPax.' Pax '.mb_convert_encoding(trim($columnDF["nombre"]), "UTF-8").'<strong></strong></td>
+<td width="80%" class="Base"><strong>&middot;</strong>&nbsp; '.$mC_totPax.' Pax '.mb_convert_encoding(trim($columnDF["nombre"]), "UTF-8", "ISO-8859-1").'<strong></strong></td>
 <td width="10%" class="Base">';
 
         if(trim($columnDF["in_"]) != "01/01/1900")
