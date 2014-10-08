@@ -66,7 +66,7 @@ class metodosController extends Controller
                     $mC_cod_prov= trim($detBloq["cod_prov"]);
                     $mC_hora_limi= trim($detBloq["hora_limi"]);
                     $mC_tramo= mb_convert_encoding(trim($detBloq["tramo"]), "UTF-8");
-                
+                    
                     $mC_notas= mb_convert_encoding(trim($detBloq["notas"]), "UTF-8");
                     $mC_idProg= trim($detBloq["idProg"]);
                     $mC_codigoProg= trim($detBloq["programa"]);
@@ -76,6 +76,8 @@ class metodosController extends Controller
                     $mC_codOris= trim($detBloq["codigoOris"]);
                     $mC_cntPrg= trim($detBloq["cnt_prg"]);
                     
+                    $mC_ciudad= mb_convert_encoding(trim($detBloq["ciudad"]), "UTF-8");
+                    $mC_pais= mb_convert_encoding(trim($detBloq["pais"]), "UTF-8");
                     
                     $xmlListadoBloqueos[]= array(
                         "record_c" => $mC_record_c,
@@ -84,8 +86,8 @@ class metodosController extends Controller
                         "fecha_tope" => $mC_fecha_tope,
                         "cod_prov" => $mC_cod_prov,
                         "hora_limi" => $mC_hora_limi,
-                        "ciudad" => mb_convert_encoding($mC_ciudad, "UTF-8"),
-                        "pais" => mb_convert_encoding($mC_pais, "UTF-8"),
+                        "ciudad" => $mC_ciudad,
+                        "pais" => $mC_pais,
                         "tramo" => $mC_tramo,
                         "notas" =>  $mC_notas,
 

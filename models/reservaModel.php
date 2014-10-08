@@ -82,7 +82,7 @@ class reservaModel extends Model
     }
     
     
-    public function getBloqeos($codBloq)
+    public function getBloqueos($codBloq)
     {
         $sql = 'SELECT * FROM bloqueos WHERE record_c = "'.$codBloq.'" ';
         //echo $sql;
