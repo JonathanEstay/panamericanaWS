@@ -578,6 +578,7 @@ class metodosController extends Controller
 
                                 $this->getLibrary('class.phpmailer');
                                 $mail = new PHPMailer();
+                                $mail->IsSMTP();
                                 $mail->Host = trim("190.196.23.232");
                                 $mail->Port = 25;
                                 $mail->From = 'panamericana@online.panamericanaturismo.cl';
