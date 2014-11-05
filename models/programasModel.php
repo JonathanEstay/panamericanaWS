@@ -14,11 +14,11 @@ class programasModel extends Model
     
     public function getProgramas($record_c)
     {
-        $sql='SELECT P.id, P.codigo, P.nombre, convert(varchar, P.nota) as nota
+        $sql='SELECT P.id, P.codigo, P.nombre, convert(varchar(MAX), P.nota) as nota
             FROM h2h_programa P
             JOIN h2h_programaOpc PO ON (P.id=PO.idprog)
             WHERE PO.record_c="'.$record_c.'"
-            GROUP BY P.id, P.codigo, P.nombre, convert(varchar, P.nota)';
+            GROUP BY P.id, P.codigo, P.nombre, convert(varchar(MAX), P.nota) ';
         
         $datos= $this->_db->consulta($sql);
         if($this->_db->numRows($datos)>0)
