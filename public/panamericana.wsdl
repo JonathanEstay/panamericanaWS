@@ -265,6 +265,7 @@ xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
                                 <s:element minOccurs="1" maxOccurs="1" name="chd2" type="s:string"/>
                                 <s:element minOccurs="1" maxOccurs="1" name="inf" type="s:string"/>
                                 <s:element minOccurs="1" maxOccurs="1" name="PF" type="s:string"/>
+                                <s:element minOccurs="1" maxOccurs="1" name="PxP" type="s:string"/>
                             </s:sequence>
                         </s:complexType>
                     </s:element>
@@ -504,6 +505,7 @@ xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
                                     <s:element minOccurs="1" maxOccurs="1" name="datos" type="s:string"/>
                                     <s:element minOccurs="1" maxOccurs="1" name="totventa" type="s:string"/>
                                     <s:element minOccurs="1" maxOccurs="1" name="vage" type="s:string"/>
+                                    <s:element minOccurs="1" maxOccurs="1" name="PxP" type="s:string"/>
                                     
                                 </s:sequence>
                             </s:complexType>

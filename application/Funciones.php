@@ -32,4 +32,30 @@ class Funciones
         
         return $newMon;
     }
+    
+    public static function getStringHab($tipoHab)
+    {
+        if($tipoHab)
+        {
+            $stringHab=false;
+            $tipos= array('SGL', 'DBL', 'TPL', 'QUA', 'DEP');
+            $tiposText= array('Single', 'Doble', 'Triple', 'Quadruple', 'Departamento');
+            
+            for($i=0; $i<5; $i++)
+            {
+                $pos = strpos($tipoHab, $tipos[$i]);
+                
+                if ($pos !== false) { //encontrado
+                    $stringHab= '<b>'.$tiposText[$i] . '</b>: {val} ';
+                    break;
+                }
+            }
+            
+            return $stringHab;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }

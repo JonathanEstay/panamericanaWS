@@ -10,6 +10,7 @@ $datosPackages= $LM_reserva->getPackages($MC_CodigoPrograma);
 $datosDetFile= $LM_reserva->getDetFile($mC_TC_file);
 $datosDetBloq= $LM_reserva->getDetBloq($MC_CodigoBloqueo, $mC_TC_file);
 $datosBloq= $LM_reserva->getBloqueos($MC_CodigoBloqueo);
+$tCambioHoy= $LM_reserva->getTipoCambio($MC_atipo);
 
 //CARGAR LA PLANTILLA DEL CORREO
 $mC_HTML=file_get_contents( ROOT . 'views' . DS . 'detalle_informe.html');
@@ -68,6 +69,9 @@ $nodosHTML["incluye"]=$mC_incluye;
 $mc_totVenta=trim($datosFile[0]['totventa']);
 $mc_ajuste=trim($datosFile[0]['ajuste']);
 
+$nodosHTML["PxP"]=trim($mC_TC_PxP);
+
+
 if(trim($datosFile[0]['moneda']) == "D")
 {
     $nodosHTML["texto_moneda"]='D&oacute;lares Americanos (USD)';
@@ -78,7 +82,7 @@ if(trim($datosFile[0]['moneda']) == "D")
                                 </td>
                                 <td width="2%">:</td>
                                 <td width="75%">
-                                        540 (Consultar al momento del pago)
+                                        '.$tCambioHoy[0]['cambio'].' (Consultar al momento del pago)
                                 </td>
                             </tr>';
 }
@@ -158,6 +162,14 @@ if($datosDetBloq!=false)
 
 
 $nodosHTML["itinerario_vuelo"]=mb_convert_encoding(str_replace("\n", "<br>", trim($datosBloq[0]['NOTAS'])), "UTF-8");
+
+
+
+
+//TIPO HABITACION 
+
+//END: TIPO HABITACION
+
 
 
 foreach($nodosHTML as $nombreNodo=>$valorNodo):

@@ -209,6 +209,7 @@ class metodosController extends Controller
                     $mC_chd2= trim($detPRG["chd2"]);
                     $mC_inf= trim($detPRG["inf"]);
                     $mC_PF= trim($detPRG["PF"]);
+                    $mC_PxP= trim($detPRG["PxP"]);
                     
                     
                     
@@ -282,7 +283,8 @@ class metodosController extends Controller
                             "chd1" => $mC_chd,
                             "chd2" => $mC_chd2,
                             "inf" => $mC_inf,
-                            "PF" => $mC_PF
+                            "PF" => $mC_PF,
+                            "PxP" => $mC_PxP
                         ),
                         
                         "hoteles" => $xmlHoteles
@@ -462,6 +464,7 @@ class metodosController extends Controller
                     $MC_CodigoBloqueo= trim($args["Parametros"]->CodigoBloqueo);
                     
                     $mC_TC_vage= trim($args["Parametros"]->vage);
+                    $mC_TC_PxP= trim($args["Parametros"]->PxP);
                     
                     //exec WEB_ORIS_CREA_FILE_WS_TESTING
                     $sql="exec WEB_ORIS_CREA_FILE_WS '$MC_Id_Agen', '$MC_codUsuario', '$MC_Fecha_In_', '$MC_CodigoPrograma', '$MC_CodigoBloqueo' ";
@@ -550,6 +553,23 @@ class metodosController extends Controller
                     
                     $sql.=", '".$mC_TC_vage."', '".$MC_correoVendedor."' ";
                     //echo $sql; exit; 
+                    
+                    
+                    
+                    /*$strHab=array();
+                    if (trim($args["Parametros"]->tipoHabitaciones_1)!='')
+                    {
+                        $strHab[]= trim($args["Parametros"]->tipoHabitaciones_1);
+                    }
+                    if (trim($args["Parametros"]->tipoHabitaciones_2)!='')
+                    {
+                        $strHab[]= trim($args["Parametros"]->tipoHabitaciones_2);
+                    }
+                    if (trim($args["Parametros"]->tipoHabitaciones_3)!='')
+                    {
+                        $strHab[]= trim($args["Parametros"]->tipoHabitaciones_3);
+                    }*/
+                    
                     
                     
                     $procesoReserva= $usuarios->exeSP($sql);
