@@ -50,7 +50,7 @@ class Database
         $arrayFetch=array();
         while($reg = mssql_fetch_array($consulta))
         {
-                $arrayFetch[]= $reg;
+            $arrayFetch[]= $reg;
         }
 
         return $arrayFetch;

@@ -216,7 +216,7 @@ class metodosController extends Controller
                     for($i=1; $i<=5; $i++)
                     {
                         $mC_codHotel= trim($detPRG["codHotel_".$i]);
-                        $mC_nombreHot= trim($detPRG["hotel_".$i]);
+                        $mC_nombreHot= mb_convert_encoding(trim($detPRG["hotel_".$i]), "UTF-8");
                         $mC_codPA= trim($detPRG["codPlanAlimenticio_".$i]);
                         $mC_PA= trim($detPRG["PlanAlimenticio_".$i]);
                         $mC_codTH= trim($detPRG["codTipoHabitacion_".$i]);

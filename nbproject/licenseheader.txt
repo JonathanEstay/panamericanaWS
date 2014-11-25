@@ -1,9 +1,0 @@
-<#if licenseFirst??>
-${licenseFirst}
-</#if>
-${licensePrefix}Proyecto : PanamericanaWS
-${licensePrefix}Autor    : Tsyacom Ltda.
-${licensePrefix}Fecha    : Martes, 19 de agosto de 2014
-<#if licenseLast??>
-${licenseLast}
-</#if>
